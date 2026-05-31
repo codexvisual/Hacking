@@ -258,6 +258,82 @@ subfinder -d example.com
 - subdomain mapping for security audit
 
 ---
+# 📶 WiFi Password (Legal & Educational Guide)
+
+> ⚠️ শুধুমাত্র নিজের PC এবং নিজের WiFi network-এর জন্য ব্যবহারযোগ্য।
+
+---
+
+# 🧠 Overview
+
+Windows system আগে যেসব WiFi network-এ connect হয়েছে, সেগুলো save করে রাখে।  
+এই commands দিয়ে তুমি saved WiFi list এবং password (if available) দেখতে পারো।
+
+---
+
+# 🖥️ Steps 1–3 (Combined)
+
+## 📌 Step 1: Saved WiFi Profiles দেখুন
+```bash
+netsh wlan show profiles
+```
+
+👉 এটি দেখাবে:
+- তোমার PC-তে আগে connect করা সব WiFi নাম  
+- saved wireless profiles list  
+
+---
+
+## 📌 Step 2: Specific WiFi select করুন
+```bash
+netsh wlan show profile name="WiFiName"
+```
+
+👉 এটি দেখাবে:
+- ওই WiFi-এর full configuration  
+- security type (WPA2/WPA3)  
+- connection settings  
+
+---
+
+## 📌 Step 3: Saved Password দেখুন (নিজের network only)
+```bash
+netsh wlan show profile name="WiFiName" key=clear
+```
+
+👉 Output-এর মধ্যে খুঁজুন:
+```text
+Key Content : your_password_here
+```
+
+✔ এখানে saved WiFi password দেখা যাবে (if stored)
+
+---
+
+# 🧠 How it works
+
+- Windows WiFi profile system credentials save করে রাখে  
+- `key=clear` দিলে system decrypted form show করে  
+- শুধুমাত্র আগে connected network-এ কাজ করে  
+
+---
+
+# ⚠️ Rules
+
+❌ অন্যের WiFi access করা যাবে না  
+❌ unauthorized network usage illegal  
+✔ নিজের PC / own network only  
+
+---
+
+# 🚀 Use Cases
+
+✔ Forgotten WiFi password recovery  
+✔ IT troubleshooting  
+✔ Device reconnect setup  
+```
+
+--
 
 # 🧠 CYBER SECURITY LEARNING PATH
 
