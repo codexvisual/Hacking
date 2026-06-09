@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="bn">
 <head>
@@ -12,7 +11,7 @@
     --surface: #161b22;
     --surface2: #1c2333;
     --border: #30363d;
-    --accent: #3fb950; /* Green tint for security profile */
+    --accent: #3fb950; /* Security Green Accent */
     --accent-blue: #58a6ff;
     --accent-red: #f78166;
     --accent-purple: #d2a8ff;
@@ -32,7 +31,7 @@
     line-height: 1.7;
   }
 
-  /* ── HERO ── */
+  /* ── HERO SECTION ── */
   .hero {
     background: linear-gradient(135deg, #0d1117 0%, #161b22 50%, #0c2511 100%);
     border-bottom: 1px solid var(--border);
@@ -86,7 +85,7 @@
     font-size: 14px;
   }
 
-  /* ── NAV ── */
+  /* ── STICKY NAVIGATION ── */
   .nav-bar {
     position: sticky; top: 0; z-index: 100;
     background: rgba(13,17,23,0.92);
@@ -111,23 +110,22 @@
     font-family: 'Space Grotesk', sans-serif;
     font-size: 13px;
     font-weight: 500;
-    padding: 6px 14px;
+    padding: 8px 16px;
     border-radius: 6px;
     cursor: pointer;
     transition: all 0.2s;
-    white-space: nowrap;
   }
   .nav-btn:hover { color: var(--text); background: var(--surface); }
   .nav-btn.active { color: var(--accent); background: rgba(63,185,80,0.1); }
 
-  /* ── LAYOUT ── */
+  /* ── LAYOUT CONTAINER ── */
   .container {
     max-width: 1100px;
     margin: 0 auto;
     padding: 40px 24px;
   }
 
-  /* ── SECTION ── */
+  /* ── SECTIONS ── */
   .section { display: none; }
   .section.active { display: block; }
 
@@ -153,7 +151,7 @@
   }
   .section-header p { color: var(--text-muted); font-size: 15px; }
 
-  /* ── CARDS / GRID ── */
+  /* ── CARDS GRID ── */
   .card-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
@@ -176,9 +174,9 @@
     color: var(--accent-purple);
   }
   .card ul { list-style-position: inside; color: var(--text-muted); font-size: 14px; }
-  .card ul li { margin-bottom: 4px; }
+  .card ul li { margin-bottom: 6px; }
 
-  /* ── CMD BLOCK ── */
+  /* ── TERMINAL CMD BLOCK ── */
   .cmd-block {
     background: var(--surface);
     border: 1px solid var(--border);
@@ -205,36 +203,36 @@
   .tag-powershell { background: rgba(210,168,255,0.15); color: var(--accent-purple); }
 
   .cmd-body { padding: 16px; }
-  .cmd-item { padding: 10px 0; border-bottom: 1px solid rgba(48,54,61,0.5); }
+  .cmd-item { padding: 12px 0; border-bottom: 1px solid rgba(48,54,61,0.5); }
   .cmd-item:last-child { border-bottom: none; }
   .cmd-code {
     font-family: 'JetBrains Mono', monospace;
-    font-size: 13px;
+    font-size: 13.5px;
     color: #3fb950;
     background: rgba(63,185,80,0.06);
     border: 1px solid rgba(63,185,80,0.15);
-    padding: 6px 12px;
+    padding: 8px 14px;
     border-radius: 6px;
-    margin-bottom: 4px;
+    margin-bottom: 6px;
     display: block;
     word-break: break-all;
   }
-  .cmd-code::before { content: '# '; color: var(--text-dim); }
-  .cmd-desc { font-size: 13px; color: var(--text-muted); }
-  .cmd-desc .bn { color: var(--text); }
-  .cmd-desc .ex { color: var(--accent-purple); font-weight: 500; }
+  .cmd-code::before { content: '$ '; color: var(--text-dim); }
+  .cmd-desc { font-size: 13.5px; color: var(--text-muted); }
+  .cmd-desc strong { color: var(--text); font-weight: 500; }
 
-  /* ── NOTICES / TIPS ── */
+  /* ── NOTICES & BANNERS ── */
   .notice-banner {
     background: rgba(247,129,102,0.06);
     border: 1px solid rgba(247,129,102,0.2);
     border-left: 4px solid var(--accent-red);
     border-radius: 0 8px 8px 0;
-    padding: 16px;
-    margin-bottom: 24px;
+    padding: 18px;
+    margin-bottom: 32px;
   }
-  .notice-banner h3 { color: var(--accent-red); font-family: 'Space Grotesk', sans-serif; margin-bottom: 6px; font-size: 16px; }
-  .notice-banner ul { list-style: none; font-size: 14px; }
+  .notice-banner h3 { color: var(--accent-red); font-family: 'Space Grotesk', sans-serif; margin-bottom: 8px; font-size: 16px; }
+  .notice-banner ul { list-style: none; font-size: 14.5px; }
+  .notice-banner ul li { margin-bottom: 4px; }
   .notice-banner ul li::before { content: '✔ '; color: var(--accent); }
   .notice-banner ul li.cross::before { content: '❌ '; }
 
@@ -244,13 +242,13 @@
     border-left: 3px solid var(--accent-blue);
     border-radius: 0 8px 8px 0;
     padding: 14px 16px;
-    margin-bottom: 16px;
+    margin-bottom: 24px;
     font-size: 14px;
   }
   .tip strong { color: var(--accent-blue); }
 
-  /* ── ROADMAP ── */
-  .roadmap { position: relative; padding-left: 32px; margin-top: 20px; }
+  /* ── LEARNING PATH ROADMAP ── */
+  .roadmap { position: relative; padding-left: 32px; margin-top: 24px; }
   .roadmap::before {
     content: ''; position: absolute; left: 10px; top: 0; bottom: 0; width: 2px;
     background: linear-gradient(to bottom, var(--accent-blue), var(--accent-purple), var(--accent));
@@ -262,56 +260,55 @@
     border-radius: 50%; border: 2px solid var(--accent-blue); background: var(--bg);
   }
   .rm-item.done::before { background: var(--accent-blue); }
-  .rm-title { font-family: 'Space Grotesk', sans-serif; font-size: 16px; font-weight: 600; margin-bottom: 6px; }
-  .rm-list { list-style: none; font-size: 13px; color: var(--text-muted); }
+  .rm-title { font-family: 'Space Grotesk', sans-serif; font-size: 16px; font-weight: 600; margin-bottom: 8px; }
+  .rm-list { list-style: none; font-size: 14px; color: var(--text-muted); }
+  .rm-list li { margin-bottom: 4px; }
   .rm-list li::before { content: '→ '; color: var(--accent); }
 
-  /* ── LEVEL BADGE ── */
   .level-badge { display: inline-block; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 4px; margin-left: 8px; font-family: 'Space Grotesk', sans-serif; }
   .level-basic { background: rgba(63,185,80,0.15); color: var(--accent); }
   .level-mid { background: rgba(255,166,87,0.15); color: var(--accent-orange); }
   .level-adv { background: rgba(247,129,102,0.15); color: var(--accent-red); }
 
-  /* ── STATS ALIGN ── */
-  .stats-container { display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; margin-top: 24px; }
+  /* ── GITHUB WIDGETS ── */
+  .stats-container { display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; margin-top: 32px; }
   .stats-container img { max-width: 100%; height: auto; border-radius: 6px; border: 1px solid var(--border); }
 
-  footer { border-top: 1px solid var(--border); text-align: center; padding: 32px 24px; color: var(--text-dim); font-size: 13px; }
-  @media (max-width: 640px) { .card-grid { grid-template-columns: 1fr; } }
+  footer { border-top: 1px solid var(--border); text-align: center; padding: 40px 24px; color: var(--text-dim); font-size: 13.5px; }
+  @media (max-width: 640px) { .card-grid { grid-template-columns: 1fr; } .stats-container { flex-direction: column; align-items: center; } }
 </style>
 </head>
 <body>
 
-<!-- HERO -->
 <div class="hero">
-  <div class="hero-badge">Security Lab & Dev Environments</div>
+  <div class="hero-badge">Ethical Lab Environment</div>
   <h1>👋 Hi, I'm <span class="highlight">Rahat</span></h1>
-  <p>Full Stack Developer | Cyber Security Learner | DevOps Engineer</p>
+  <div style="margin: 16px 0 24px;">
+    <img src="https://readme-typing-svg.herokuapp.com?color=00FF00&size=22&center=true&vCenter=true&width=800&lines=Full+Stack+Developer;Cyber+Security+Learner;DevOps+Engineer;Ethical+Hacking+Lab+Engineer" alt="Typing SVG">
+  </div>
   <div class="motto-box">Learn Security. Build Systems. Protect Technology.</div>
 </div>
 
-<!-- NAV -->
 <div class="nav-bar">
   <div class="nav-inner">
-    <button class="nav-btn active" onclick="show('about')">🧠 About & Notice</button>
-    <button class="nav-btn" onclick="show('recon')">🌐 Network Recon</button>
-    <button class="nav-btn" onclick="show('discovery')">🔎 Discovery & Ports</button>
-    <button class="nav-btn" onclick="show('sys-analysis')">🖥️ System & Logs</button>
-    <button class="nav-btn" onclick="show('web-sec')">🔬 Web Security</button>
-    <button class="nav-btn" onclick="show('wifi-lab')">📶 WiFi Analysis</button>
-    <button class="nav-btn" onclick="show('pathway')">🗺️ Learning Path</button>
+    <button class="nav-btn active" onclick="showTab('about')">🧠 About & Notice</button>
+    <button class="nav-btn" onclick="showTab('recon')">🌐 Network Recon</button>
+    <button class="nav-btn" onclick="showTab('ports')">🔎 Port & Services</button>
+    <button class="nav-btn" onclick="showTab('system')">🖥️ System Analysis</button>
+    <button class="nav-btn" onclick="showTab('websec')">🔬 Web & SQL Security</button>
+    <button class="nav-btn" onclick="showTab('wifi')">📶 WiFi Analysis</button>
+    <button class="nav-btn" onclick="showTab('roadmap')">🗺️ Learning Pathway</button>
   </div>
 </div>
 
 <div class="container">
 
-  <!-- SECTION: ABOUT & NOTICE -->
   <section id="about" class="section active">
     <div class="notice-banner">
       <h3>⚠️ ETHICAL NOTICE</h3>
       <ul>
         <li>Cyber Security Learning Purpose Only</li>
-        <li>SOC / Blue Team Training Ecosystems</li>
+        <li>SOC / Blue Team Training</li>
         <li>Authorized Lab Testing (VM, Kali, Windows Sandbox)</li>
         <li class="cross">No illegal access allowed</li>
         <li class="cross">No unauthorized scanning or hacking mechanisms</li>
@@ -319,58 +316,69 @@
     </div>
 
     <div class="section-header">
-      <div class="section-eyebrow">Overview</div>
-      <h2>🧠 About Me & Tech Stack</h2>
-      <p>কোড আর্কিটেকচার তৈরি থেকে শুরু করে ডিফেন্সিভ সিকিউরিটি অ্যানালাইসিস এনভায়রনমেন্ট তৈরি করা পর্যন্ত।</p>
+      <div class="section-eyebrow">Profile Pipeline</div>
+      <h2>🧠 About Me</h2>
+      <p>সিস্টেম আর্কিটেকচার ডেভলপমেন্ট থেকে শুরু করে ফুল-স্ট্যাক ও ডিফেন্সিভ সিকিউরিটি অ্যানালাইসিস ল্যাব এনভায়রনমেন্ট বিল্ড করা পর্যন্ত।</p>
     </div>
 
     <div class="card-grid">
       <div class="card">
-        <h3>🌐 Apps & Automation</h3>
+        <h3>🌐 Web & Infrastructure</h3>
         <ul>
-          <li>Web & Mobile Application Engineering</li>
-          <li>System Architecture Blueprint Design</li>
-          <li>AI Automation Integrations</li>
+          <li>Web & Mobile Applications Deployment</li>
+          <li>Cloud Operations & DevOps Automations</li>
+          <li>System Architecture Framework Design</li>
         </ul>
       </div>
       <div class="card">
-        <h3>☁️ Infrastructure & Defense</h3>
+        <h3>🔐 Defense & Intelligence</h3>
         <ul>
-          <li>Cloud Operations & DevOps Deployments</li>
-          <li>Cyber Security Defense Infrastructures</li>
-          <li>Authorized Lab Simulation Environment Setup</li>
+          <li>Cyber Security Defense Architecture</li>
+          <li>Ethical Hacking Lab Simulations</li>
+          <li>AI-Driven Security & Automation Core</li>
         </ul>
       </div>
     </div>
 
-    <div class="stats-container">
-      <!-- GitHub stats dynamic widgets layout placeholders -->
-      <div class="tip" style="width:100%; text-align:center;"><strong>📊 GitHub Statistics Environment Pipeline</strong></div>
+    <div class="section-header" style="margin-top: 40px; border: none; padding: 0;">
+      <div class="section-eyebrow">Focus Engine</div>
+      <h2>📡 Current Core Focus</h2>
     </div>
+    <div class="card-grid">
+      <div class="card" style="border-top: 2px solid var(--accent-blue);"><h3>Microservices</h3><p style="font-size:13.5px; color:var(--text-muted);">Scalable application architecture design.</p></div>
+      <div class="card" style="border-top: 2px solid var(--accent-purple);"><h3>Cloud Security</h3><p style="font-size:13.5px; color:var(--text-muted);">Hardening cloud infrastructure (AWS).</p></div>
+      <div class="card" style="border-top: 2px solid var(--accent);"><h3>DevSecOps</h3><p style="font-size:13.5px; color:var(--text-muted);">Integrating security check pipelines in CI/CD.</p></div>
+      <div class="card" style="border-top: 2px solid var(--accent-orange);"><h3>SOC Monitoring</h3><p style="font-size:13.5px; color:var(--text-muted);">Real-time log collection and endpoint analysis.</p></div>
+    </div>
+
+    <div class="stats-container">
+      <img src="https://github-readme-stats.vercel.app/api?username=YOUR_USERNAME&show_icons=true&theme=tokyonight" alt="Github Stats">
+      <img src="https://github-readme-streak-stats.herokuapp.com/?user=YOUR_USERNAME&theme=tokyonight" alt="Github Streak">
+    </div>
+    <div style="text-align: center; margin-top: 24px; font-size: 14px; color: var(--text-muted);">⭐ If you like this repo, give a star</div>
   </section>
 
-  <!-- SECTION: NETWORK RECON -->
   <section id="recon" class="section">
     <div class="section-header">
-      <div class="section-eyebrow">Lab Layer 01</div>
-      <h2>🌐 Network Reconnaissance</h2>
-      <p>লোকাল বা রিমোট নেটওয়ার্ক ইন্টারফেস ইনফরমেশন এবং কানেক্টিভিটি অ্যানালাইসিস এনভায়রনমেন্ট।</p>
+      <div class="section-eyebrow">Lab Module 01</div>
+      <h2>🌐 Network Reconnaissance (Ethical Lab)</h2>
+      <p>লোকাল ল্যাব ও নেটওয়ার্ক ইন্টারফেস এনালাইসিসের জন্য ব্যাসিক ইনফরমেশন এবং কানেক্টিভিটি রাউটিং ট্র্যাকিং।</p>
     </div>
 
     <div class="cmd-block">
       <div class="cmd-header">
         <div class="cmd-dots"><span></span><span></span><span></span></div>
         <span class="cmd-title">Basic Network Interfaces</span>
-        <span class="cmd-tag tag-bash">CLI Tools</span>
+        <span class="cmd-tag tag-bash">CLI Envs</span>
       </div>
       <div class="cmd-body">
         <div class="cmd-item">
           <span class="cmd-code">ipconfig /all</span>
-          <div class="cmd-desc"><span class="bn">👉 Windows: আপনার device এর IP, DNS, MAC info দেখায়।</span></div>
+          <div class="cmd-desc"><strong>Windows:</strong> আপনার device এর IP, DNS, MAC info দেখায়।</div>
         </div>
         <div class="cmd-item">
           <span class="cmd-code">ip a</span>
-          <div class="cmd-desc"><span class="bn">👉 Linux: Network interface configurations এবং IP bindings প্রিন্ট করে।</span></div>
+          <div class="cmd-desc"><strong>Linux:</strong> Network interface configuration ও IP bindings প্রিন্ট করে।</div>
         </div>
       </div>
     </div>
@@ -378,91 +386,86 @@
     <div class="cmd-block">
       <div class="cmd-header">
         <div class="cmd-dots"><span></span><span></span><span></span></div>
-        <span class="cmd-title">Connectivity & DNS Mapping</span>
-        <span class="cmd-tag tag-bash">NETWORK</span>
+        <span class="cmd-title">Connectivity & Domain DNS Analysis</span>
+        <span class="cmd-tag tag-bash">Routing</span>
       </div>
       <div class="cmd-body">
         <div class="cmd-item">
           <span class="cmd-code">ping google.com</span>
-          <div class="cmd-desc"><span class="bn">👉 ICMP Echo Request পাঠিয়ে Internet working বা active কিনা তা টেস্ট করে।</span></div>
+          <div class="cmd-desc"><strong>Internet Working Test:</strong> ইন্টারনেট একটিভ কিনা তা ICMP প্যাকেটের মাধ্যমে টেস্ট করে।</div>
         </div>
         <div class="cmd-item">
           <span class="cmd-code">traceroute google.com</span>
-          <div class="cmd-desc"><span class="bn">👉 প্যাকেট গন্তব্যে পৌঁছাতে কোন কোন রাউটার বা হপ অতিক্রম করছে তা ট্র্যাক করে।</span></div>
+          <div class="cmd-desc"><strong>Route Tracking:</strong> ডাটা কোন কোন রাউটার বা গেটওয়ে (Route) দিয়ে পাস হচ্ছে তা ট্র্যাক করে।</div>
         </div>
         <div class="cmd-item">
           <span class="cmd-code">nslookup example.com</span>
-          <div class="cmd-desc"><span class="bn">👉 Domain নামকে নির্দিষ্ট IP address এ কনভার্ট করে রেকর্ড বিশ্লেষণ করে।</span></div>
+          <div class="cmd-desc"><strong>DNS Lookup:</strong> Domain নামকে নির্দিষ্ট IP address এ কনভার্ট করে রেকর্ড দেখায়।</div>
         </div>
         <div class="cmd-item">
           <span class="cmd-code">dig example.com</span>
-          <div class="cmd-desc"><span class="bn">👉 Advanced DNS record query টুল (A, MX, TXT records ট্র্যাকিং)।</span></div>
+          <div class="cmd-desc"><strong>Advanced DNS Analysis:</strong> ডোমেইনের ডিটেইলড DNS রেকর্ড অ্যানালাইসিস করতে সাহায্য করে।</div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- SECTION: PORT DISCOVERY -->
-  <section id="discovery" class="section">
+  <section id="ports" class="section">
     <div class="section-header">
-      <div class="section-eyebrow">Lab Layer 02</div>
-      <h2>🔎 Port & Service Discovery</h2>
-      <p>ল্যাব অডিটিং সেশনের জন্য ওপেন পোর্ট এবং ব্যাকএন্ড রানিং সার্ভিস ট্র্যাকিং প্রোটোকল।</p>
+      <div class="section-eyebrow">Lab Module 02</div>
+      <h2>🔎 Port & Service Discovery (Lab Only)</h2>
+      <p>লোকাল অডিটিং সেশনের জন্য ওপেন সকেট এবং সার্ভিসের ব্যানার ও ভার্সন আইডেন্টিফিকেশন টুলস।</p>
     </div>
-
-    <div class="tip"><strong>💡 Defensive Usage:</strong> নিজের লোকাল সার্ভার অডিটিং ও নেটওয়ার্ক সিকিউরিটি বেসলাইন চেক করার জন্য অত্যন্ত উপযোগী।</div>
+    <div class="tip"><strong>📘 Audit Example:</strong> সার্ভার হার্ডেনিং বা নেটওয়ার্ক সিকিউরিটি বেসলাইন অডিট করার জন্য এগুলো ব্যবহার করা হয়।</div>
 
     <div class="cmd-block">
       <div class="cmd-header">
         <div class="cmd-dots"><span></span><span></span><span></span></div>
-        <span class="cmd-title">Auditing Services & Sockets</span>
-        <span class="cmd-tag tag-bash">AUDIT</span>
+        <span class="cmd-title">Port Scanning & Sockets Binding</span>
+        <span class="cmd-tag tag-bash">Nmap / Sockets</span>
       </div>
       <div class="cmd-body">
         <div class="cmd-item">
           <span class="cmd-code">nmap -sV 192.168.1.1</span>
-          <div class="cmd-desc">
-            <span class="bn">👉 কোন কোন পোর্ট ওপেন আছে এবং ব্যাকএন্ডে কোন সার্ভিসের কোন ভার্সন রানিং তা ডিটেক্ট করে।</span>
-          </div>
+          <div class="cmd-desc"><strong>Bangla:</strong> টার্গেটে কোন কোন পোর্ট ওপেন আছে এবং ব্যাকএন্ডে কোন সার্ভিস রানিং তার ভার্সন ডিটেক্ট করে।</div>
         </div>
         <div class="cmd-item">
           <span class="cmd-code">ss -tulpn</span>
-          <div class="cmd-desc"><span class="bn">👉 লোকাল সিস্টেমে কোন পোর্ট কোন নির্দিষ্ট অ্যাপ্লিকেশন বা প্রসেস ইউজ করছে তা লিসেনিং সকেটসহ দেখায়।</span></div>
+          <div class="cmd-desc"><strong>Bangla:</strong> আপনার লোকাল সিস্টেমে কোন পোর্ট কোন নির্দিষ্ট অ্যাপ্লিকেশন বা সার্ভিস ইউজ করছে তা ডিটেইলস দেখায়।</div>
         </div>
         <div class="cmd-item">
           <span class="cmd-code">nmap -sS -sV target.com</span>
-          <div class="cmd-desc"><span class="bn">👉 Stealth SYN সোর্স স্ক্যান এবং রানিং সার্ভিস আইডেন্টিফিকেশন প্রোটোকল (ল্যাব এনভায়রনমেন্ট অনলি)।</span></div>
+          <div class="cmd-desc"><strong>Stealth Core:</strong> ল্যাব এনভায়রনমেন্টে SYN stealth স্ক্যানিং ও সার্ভিস ফিঙ্গারপ্রিন্টিং অপারেশন।</div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- SECTION: SYSTEM ANALYSIS -->
-  <section id="sys-analysis" class="section">
+  <section id="system" class="section">
     <div class="section-header">
-      <div class="section-eyebrow">Forensic Layer</div>
-      <h2>🖥️ System Analysis & Logs</h2>
-      <p>অ্যাক্টিভ প্রসেস ট্র্যাকিং, নেটওয়ার্ক সকেট কানেকশন এনালাইসিস এবং ব্লু টিম সিকিউরিটি লগ ট্র্যাকিং।</p>
+      <div class="section-eyebrow">Forensics Engine</div>
+      <h2>🖥️ System Analysis & Blue Team Diagnostics</h2>
+      <p>অ্যাক্টিভ মেমোরি প্রসেস ট্র্যাকিং, নেটওয়ার্ক সকেট কানেকশন এনালাইসিস এবং ব্লু টিম সিকিউরিটি লগ অডিটিং।</p>
     </div>
 
     <div class="cmd-block">
       <div class="cmd-header">
         <div class="cmd-dots"><span></span><span></span><span></span></div>
-        <span class="cmd-title">Runtime Diagnostics & Network States</span>
-        <span class="cmd-tag tag-bash">SYS</span>
+        <span class="cmd-title">Process & Open Port Diagnostics</span>
+        <span class="cmd-tag tag-bash">Processes</span>
       </div>
       <div class="cmd-body">
         <div class="cmd-item">
           <span class="cmd-code">tasklist</span>
-          <div class="cmd-desc"><span class="bn">👉 Windows সিস্টেমে বর্তমানে রানিং অ্যাপ্লিকেশন এবং ব্যাকগ্রাউন্ড প্রসেস মেমোরিসহ প্রিন্ট করে।</span></div>
+          <div class="cmd-desc"><strong>Windows:</strong> বর্তমানে মেমোরিতে রানিং সব অ্যাপ্লিকেশন এবং ব্যাকগ্রাউন্ড প্রসেস লিস্ট শো করে।</div>
         </div>
         <div class="cmd-item">
           <span class="cmd-code">ps aux</span>
-          <div class="cmd-desc"><span class="bn">👉 Linux এনভায়রনমেন্টে রানিং সকল টাস্কের ডিটেইলড স্ট্যাটাস আর্কিটেকচার দেখায়।</span></div>
+          <div class="cmd-desc"><strong>Linux:</strong> সিস্টেমের রানিং সকল টাস্কের ডিটেইলড স্ট্যাটাস আর্কিটেকচার দেখায়।</div>
         </div>
         <div class="cmd-item">
           <span class="cmd-code">netstat -ano</span>
-          <div class="cmd-desc"><span class="bn">👉 কোন অ্যাপ বর্তমানে ইন্টারনেট কানেকশন হোল্ড করে আছে, কোন লোকাল পোর্ট ওপেন এবং প্রসেস আইডি (PID) অ্যানালাইসিস।</span></div>
+          <div class="cmd-desc"><strong>Bangla:</strong> কোন অ্যাপ বা প্রসেস আইডি (PID) বর্তমানে ইন্টারনেট কানেকশন হোল্ড করে আছে বা পোর্ট ওপেন রেখেছে তা দেখায়।</div>
         </div>
       </div>
     </div>
@@ -470,199 +473,203 @@
     <div class="cmd-block">
       <div class="cmd-header">
         <div class="cmd-dots"><span></span><span></span><span></span></div>
-        <span class="cmd-title">Blue Team Analytics & Log Pipeline</span>
-        <span class="cmd-tag tag-powershell">LOGS</span>
+        <span class="cmd-title">File Integrity & SIEM Logs</span>
+        <span class="cmd-tag tag-powershell">Integrity</span>
       </div>
       <div class="cmd-body">
         <div class="cmd-item">
           <span class="cmd-code">sha256sum file</span>
-          <div class="cmd-desc"><span class="bn">👉 Linux ফাইলে কোনো অননুমোদিত পরিবর্তন হয়েছে কিনা তা যাচাই করার জন্য ইন্টিগ্রিটি চেকসাম জেনারেট করে।</span></div>
+          <div class="cmd-desc"><strong>Linux Checksum:</strong> ফাইলে কোনো প্রকার অননুমোদিত মডিফিকেশন হয়েছে কিনা তা ডিটেক্ট করতে ক্রিপ্টোগ্রাফিক হ্যাশ তৈরি করে।</div>
         </div>
         <div class="cmd-item">
           <span class="cmd-code">certutil -hashfile file SHA256</span>
-          <div class="cmd-desc"><span class="bn">👉 Windows সিস্টেমে বাইনারি বা ফাইলের ক্রিপ্টোগ্রাফিক হ্যাশ ভ্যালু ডিটেকশন প্রোটোকল।</span></div>
+          <div class="cmd-desc"><strong>Windows Checksum:</strong> উইন্ডোজ বাইনারি বা ফাইলের ইন্টিগ্রিটি চেকসাম ভেরিফিকেশন প্রোটোকল।</div>
         </div>
         <div class="cmd-item">
           <span class="cmd-code">Get-WinEvent -LogName Security</span>
-          <div class="cmd-desc"><span class="bn">👉 Windows Security লগের রিয়েল-টাইম অডিট (যেমন: ইউজার লগইন হিস্টোরি এবং ফেইলড অ্যাটেম্পট ডিটেকশন)।</span></div>
+          <div class="cmd-desc"><strong>Bangla:</strong> উইন্ডোজের ইন্টারনাল লগইন হিস্টোরি অডিট এবং ফেইলড বা সাসপিসিয়াস লগইন ডিটেক্ট করতে সিকিউরিটি ইভেন্ট অডিট করে।</div>
         </div>
         <div class="cmd-item">
           <span class="cmd-code">journalctl -xe</span>
-          <div class="cmd-desc"><span class="bn">👉 Linux systemd এনভায়রনমেন্টের সিস্টেম এরর এবং সিকিউরিটি অ্যালার্ট লগ এক্সপ্লোরেশন।</span></div>
+          <div class="cmd-desc"><strong>Linux Log:</strong> সিস্টেম এরর, সার্ভিস ফেইলর এবং হোস্ট ডিফেন্স লেভেলের রিয়েল-টাইম লগ ট্র্যাকিং।</div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- SECTION: WEB SECURITY -->
-  <section id="web-sec" class="section">
+  <section id="websec" class="section">
     <div class="section-header">
-      <div class="section-eyebrow">Audit Engine</div>
+      <div class="section-eyebrow">Audit Core</div>
       <h2>🔬 Web Security & Safe Theory</h2>
-      <p>ওয়েবসাইট টেকনোলজি ফিঙ্গারপ্রিন্টিং এবং সিকিউর কোডিং থিওরি বেসলাইন।</p>
+      <p>ওয়েবসাইট টেকনোলজি ফিঙ্গারপ্রিন্টিং, হেডার সিকিউরিটি অ্যানালাইসিস এবং সিকিউর কোডিং ডেমোনেস্ট্রেশন।</p>
     </div>
 
     <div class="cmd-block">
       <div class="cmd-header">
         <div class="cmd-dots"><span></span><span></span><span></span></div>
-        <span class="cmd-title">Fingerprinting & Domain Lookup</span>
-        <span class="cmd-tag tag-bash">WEB</span>
+        <span class="cmd-title">Technology Mapping & Subdomain Discovery</span>
+        <span class="cmd-tag tag-bash">Target Scan</span>
       </div>
       <div class="cmd-body">
         <div class="cmd-item">
           <span class="cmd-code">whatweb example.com</span>
-          <div class="cmd-desc"><span class="bn">👉 টার্গেট ওয়েবসাইট কোন সিএমএস, প্লাগইন, ওয়েব সার্ভার বা ফ্রেমওয়ার্ক ইউজ করছে তা আইডেন্টিফাই করে।</span></div>
+          <div class="cmd-desc"><strong>Bangla:</strong> টার্গেট ওয়েবসাইট কোন সিএমএস, প্লাগইন, ডাটাবেস বা সার্ভার টেকনোলজি ইউজ করছে তা আইডেন্টিফাই করে।</div>
         </div>
         <div class="cmd-item">
           <span class="cmd-code">curl -I https://example.com</span>
-          <div class="cmd-desc"><span class="bn">👉 ওয়েবসাইটের HTTP হেডার রেসপন্স ডেটা এবং সিকিউরিটি ফ্ল্যাগ স্ট্রাকচার এনালাইসিস করে।</span></div>
+          <div class="cmd-desc"><strong>Header Analytics:</strong> ওয়েবসাইটের HTTP হেডার রেসপন্স ডেটা এবং মিসকনফিগারেশন চেক করার মেকানিজম।</div>
         </div>
         <div class="cmd-item">
           <span class="cmd-code">whois example.com</span>
-          <div class="cmd-desc"><span class="bn">👉 ডোমেইন রেজিস্ট্রেশন ডিটেইলস, ওনারশিপ ইনফরমেশন এবং নেমসার্ভার কনফিগারেশন চেক।</span></div>
+          <div class="cmd-desc"><strong>Bangla:</strong> ডোমেইন ওনারশিপ ইনফরমেশন, রেজিস্ট্রেশন ডিটেইলস এবং নেমসার্ভার রেকর্ডস এনালাইসিস।</div>
         </div>
         <div class="cmd-item">
           <span class="cmd-code">nikto -h https://target.com</span>
-          <div class="cmd-desc"><span class="bn">👉 ওয়েব সার্ভারের মিসকনফিগারেশন এবং আউটডেটেড ফাইল ডিটেকশন ও ডিফেনসিভ অডিট স্ক্যানার।</span></div>
+          <div class="cmd-desc"><strong>Vulnerability Scanner:</strong> ওয়েব সার্ভারের বিপজ্জনক বা আউটডেটেড ফাইল এবং সিকিউরিটি হোলস ডিটেকশনের জন্য ডিফেনসিভ অডিট।</div>
         </div>
         <div class="cmd-item">
           <span class="cmd-code">dig A example.com</span>
-          <div class="cmd-desc"><span class="bn">👉 ডোমেইনের নির্দিষ্ট IPv4 Mapping বা Address রেকর্ড আইসোলেশন।</span></div>
+          <div class="cmd-desc"><strong>DNS Layer:</strong> ডোমেইনের নির্দিষ্ট IPv4 Address ম্যাপিং আইসোলেশন।</div>
         </div>
         <div class="cmd-item">
           <span class="cmd-code">subfinder -d example.com</span>
-          <div class="cmd-desc"><span class="bn">👉 ডিফেনসিভ অডিটের জন্য প্যাসিভ সাবডোমেন ম্যাপিং এবং অ্যাটাক সারফেস রিডাকশন পলিসি।</span></div>
+          <div class="cmd-desc"><strong>Bangla:</strong> সিকিউরিটি অ্যাসেসমেন্টের জন্য টার্গেট ডোমেইনের অধীনে থাকা সব সাবডোমেন আইডেন্টিফাই বা ম্যাপিং করার জন্য ব্যবহার করা হয়।</div>
         </div>
       </div>
     </div>
 
     <div class="card-grid">
       <div class="card" style="border-left: 3px solid var(--accent-red);">
-        <h3>💡 SQL Injection Concept (Theory Only)</h3>
-        <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 8px;">কনসেপ্ট: ইউজার ইনপুট যদি ডাটাবেস কোয়েরির সাথে প্রপারলি স্যানিটাইজ না হয়ে সরাসরি এক্সিকিউট হয়, তবে ডাটাবেস কুয়েরি ম্যানিপুলেট হতে পারে।</p>
-        <span class="cmd-code" style="color: var(--accent-red); background: rgba(247,129,102,0.05);">' OR '1'='1</span>
-        <p style="font-size: 12px; margin-top: 4px;" class="bn">👉 এটি মূলত একটি ল্যাব ডেমোনেস্ট্রেশন যা দেখায় কিভাবে দুর্বল কোডিং এর কারণে অথেন্টিকেশন বাইপাস লজিক কাজ করে।</p>
+        <h3>🧪 SQL Injection Concept (Educational Only)</h3>
+        <p style="font-size: 13.5px; color: var(--text-muted); margin-bottom: 8px;"><strong>Concept:</strong> ইউজার ইনপুট যদি ডাটাবেস কোয়েরির সাথে প্রপারলি স্যানিটাইজ না হয়ে সরাসরি এক্সিকিউট হয়, তবে ডাটাবেস কোয়েরি ম্যানিপুলেট হতে পারে।</p>
+        <span class="cmd-code" style="color: var(--accent-red); background: rgba(247,129,102,0.04);">' OR '1'='1</span>
+        <p style="font-size: 13px;" class="bn">👉 এটি মূলত একটি ল্যাব থিওরি ডেমোনেস্ট্রেশন যা দেখায় কিভাবে দুর্বল ব্যাকএন্ড লজিকের কারণে অথেন্টিকেশন বাইপাস কন্ট্রোল ব্রেক হয় (শুধুমাত্র শেখার জন্য)।</p>
       </div>
 
       <div class="card" style="border-left: 3px solid var(--accent);">
-        <h3>✔ Core Prevention Blueprint</h3>
+        <h3>✔ Prevention Blueprint (Important)</h3>
         <ul>
           <li>Use Prepared Statements / Parameterized Queries</li>
-          <li>Strict Input Sanitization & Type Validation</li>
-          <li>Implement Modern ORMs (Laravel / Prisma / Sequelize)</li>
-          <li>Deploy Robust Web Application Firewalls (WAF)</li>
+          <li>Strict Input Validation & Escaping Systems</li>
+          <li>Implement Secure ORM Architecture (Laravel / Prisma / Sequelize)</li>
+          <li>Deploy Web Application Firewall (WAF) Protections</li>
         </ul>
       </div>
     </div>
   </section>
 
-  <!-- SECTION: WIFI LAB -->
-  <section id="wifi-lab" class="section">
+  <section id="wifi" class="section">
     <div class="section-header">
       <div class="section-eyebrow">Local Infrastructure</div>
-      <h2>📶 WiFi Network Management & Verification</h2>
-      <p>শুধুমাত্র নিজের টেস্ট পিসি এবং অথোরাইজড ল্যাব ওয়াইফাই নেটওয়ার্কের ট্রাবলশুটিং প্রোটোকল।</p>
+      <h2>📶 WiFi Network Recovery Guide (Legal & Educational)</h2>
+      <p>শুধুমাত্র নিজের হোস্ট পিসি এবং অথোরাইজড ল্যাব ওয়াইফাই নেটওয়ার্কের কানেকশন ক্রেডেনশিয়াল ট্রাবলশুটিং প্রোটোকল।</p>
     </div>
-
-    <div class="tip"><strong>⚠️ Rules Execution Window:</strong> অন্যের ওয়াইফাই নেটওয়ার্ক অ্যাক্সেস বা যেকোনো ধরনের অননুমোদিত ইউজেস সম্পূর্ণ অবৈধ। শুধুমাত্র নিজের ডোমেন রিকভারি ও আইটি ট্রাবলশুটিং সেশনে ব্যবহারযোগ্য।</div>
+    <div class="notice-banner">
+      <h3>⚠️ SECURITY LIMITS</h3>
+      <ul>
+        <li>শুধুমাত্র নিজের PC এবং নিজের WiFi network-এর জন্য ব্যবহারযোগ্য।</li>
+        <li class="cross">অন্যের WiFi বা যেকোনো নেটওয়ার্ক অননুমোদিত অ্যাক্সেস করা সম্পূর্ণ অবৈধ।</li>
+      </ul>
+    </div>
 
     <div class="cmd-block">
       <div class="cmd-header">
         <div class="cmd-dots"><span></span><span></span><span></span></div>
-        <span class="cmd-title">Windows Wireless Profiles Configuration</span>
-        <span class="cmd-tag tag-powershell">WLAN</span>
+        <span class="cmd-title">Windows WLAN Profile Utilities</span>
+        <span class="cmd-tag tag-powershell">WLAN CMD</span>
       </div>
       <div class="cmd-body">
         <div class="cmd-item">
           <span class="cmd-code">netsh wlan show profiles</span>
-          <div class="cmd-desc"><span class="bn">👉 সিস্টেমে পূর্বে কানেক্ট হওয়া সমস্ত ওয়াইফাই নেটওয়ার্কের সেভড প্রোফাইল নেম লিস্ট রিটার্ন করে।</span></div>
+          <div class="cmd-desc"><strong>Step 1:</strong> তোমার PC-তে আগে কানেক্ট করা সব WiFi নামের Wireless Profile List রিটার্ন করে।</div>
         </div>
         <div class="cmd-item">
           <span class="cmd-code">netsh wlan show profile name="WiFiName"</span>
-          <div class="cmd-desc"><span class="bn">👉 নির্দিষ্ট ওয়াইফাই প্রোফাইলের ফুল কনফিগারেশন, সিকিউরিটি টাইপ (WPA2/WPA3) এবং ওয়ারলেস সেটিংস রেন্ডার করে।</span></div>
+          <div class="cmd-desc"><strong>Step 2:</strong> ওই WiFi-এর ফুল কনফিগারেশন, সিকিউরিটি এনক্রিপশন টাইপ (WPA2/WPA3) এবং সেটিং স্ট্রাকচার দেখায়।</div>
         </div>
         <div class="cmd-item">
           <span class="cmd-code">netsh wlan show profile name="WiFiName" key=clear</span>
           <div class="cmd-desc">
-            <span class="bn">👉 নিজের পূর্বে কানেক্টেড নেটওয়ার্কের ভুলে যাওয়া ক্রেডেনশিয়াল রিকভারি লজিক।</span>
-            <br><span class="ex">Output Extraction Target: Key Content : your_password_here</span>
+            <strong>Step 3:</strong> নিজের নেটওয়ার্কের ক্রেডেনশিয়াল ভুলে গেলে তা প্লেইন টেক্সট মোডে ভেরিফাই করার কম্যান্ড।
+            <br><span style="color: var(--accent-purple); font-size: 12px; font-family:'JetBrains Mono';">Target Line Hunt: Key Content : your_password_here</span>
           </div>
         </div>
       </div>
     </div>
 
-    <div class="card" style="width: 100%;">
-      <h3>🧠 How it Works</h3>
-      <p style="font-size: 14px; color: var(--text-muted);">Windows ওয়ারলেস প্রোফাইল ম্যানেজমেন্ট ডাটাবেস ক্রেডেনশিয়াল সুরক্ষিত অবস্থায় ইন্টারনালি স্টোর করে রাখে। এডমিন প্রিভিলেজসহ <code>key=clear</code> প্যারামিটার পাস করলে উইন্ডোজ সাবসিস্টেম তার ডিস্ক্রিপ্টেড ফর্ম বা সেভড কি প্লেইন টেক্সট আকারে শো করে।</p>
+    <div class="card">
+      <h3>🧠 How it Works Mechanics</h3>
+      <p style="font-size: 14px; color: var(--text-muted);">Windows ওএস ওয়ারলেস প্রোফাইল ম্যানেজমেন্ট ডাটাবেসে ক্রেডেনশিয়াল ইন্টারনালি সেভ করে রাখে। এডমিন প্রিভিলেজসহ <code>key=clear</code> প্যারামিটার পাস করলে উইন্ডোজ সাবসিস্টেম তার ডিস্ক্রিপ্টেড ফর্ম বা সেভড কি প্লেইন টেক্সট আকারে শো করে। এটি পূর্বে কানেক্টেড হওয়া নেটওয়ার্ক ক্রেডেনশিয়াল রিকভারি ও আইটি ট্রাবলশুটিং সেশনে কার্যকর ভূমিকা রাখে।</p>
     </div>
   </section>
 
-  <!-- SECTION: PATHWAY -->
-  <section id="pathway" class="section">
+  <section id="roadmap" class="section">
     <div class="section-header">
       <div class="section-eyebrow">Milestones</div>
-      <h2>🗺️ Cyber Security Learning Roadmap</h2>
-      <p>ফাউন্ডেশন লেভেল থেকে শুরু করে এডভান্সড এসওসি বা থ্রেট ডিটেকশন ইঞ্জিনিয়ারিংয়ে উন্নীত হওয়ার রোডম্যাপ।</p>
+      <h2>🗺️ Cyber Security Learning Path</h2>
+      <p>ফাউন্ডেশন লেভেল থেকে শুরু করে এডভান্সড ইন্সিডেন্ট রেসপন্স ও এসওসি এনভায়রনমেন্ট অ্যানালাইসিস আয়ত্ত করার কমপ্লিট ম্যাপ।</p>
     </div>
 
     <div class="roadmap">
       <div class="rm-item done">
-        <div class="rm-title">🟢 Level 1 — Core Foundation <span class="level-badge level-basic">Basic</span></div>
+        <div class="rm-title">Level 1: Core Foundation <span class="level-badge level-basic">Basic</span></div>
         <ul class="rm-list">
-          <li>Networking Basics (OSI Model, TCP/IP Suite)</li>
-          <li>Linux Directory Structure & Shell Architecture</li>
-          <li>Windows Command Prompt & Batch Execution Environment</li>
+          <li>Networking Basics (TCP/IP Layers, OSI Core Framework)</li>
+          <li>Linux Commands Architecture & File Permissions</li>
+          <li>Windows CMD Environment Manipulation & Controls</li>
         </ul>
       </div>
       <div class="rm-item">
-        <div class="rm-title">🔵 Level 2 — Discovery & Monitoring <span class="level-badge level-mid">Mid</span></div>
+        <div class="rm-title">Level 2: Scanning & Infrastructure Monitoring <span class="level-badge level-mid">Mid</span></div>
         <ul class="rm-list">
-          <li>Nmap Advanced Engine Scanning & Banner Grabbing</li>
-          <li>DNS Records Mapping & Packet Analysis Logs</li>
-          <li>Active System Process Architecture Reading & Integrity Audits</li>
+          <li>Nmap Port Audit Scanning & Service Discovery Engines</li>
+          <li>DNS Records Analysis & Data Packet Traversal Maps</li>
+          <li>Log Reading Basics & Endpoint Activity Audits</li>
         </ul>
       </div>
       <div class="rm-item">
-        <div class="rm-title">🟠 Level 3 — Web App Protection <span class="level-badge level-adv">Advanced</span></div>
+        <div class="rm-title">Level 3: Web Application Protection <span class="level-badge level-adv">Advanced</span></div>
         <ul class="rm-list">
-          <li>Web Security Weakness Audits & Vulnerability Analysis</li>
-          <li>SQL Injection Prevention Paradigms (Prepared Statements)</li>
-          <li>Robust Multi-Layer Authentication Design & Input Filters</li>
+          <li>Web Security Basics & Server Fingerprinting Controls</li>
+          <li>SQL Injection Defensive Coding Paradigms (Prepared Statements)</li>
+          <li>Authentication Logic Protection & Multi-Layer Request Filters</li>
         </ul>
       </div>
       <div class="rm-item">
-        <div class="rm-title">🔴 Level 4 — Incident & SOC Ops <span class="level-badge level-adv" style="background:rgba(255,0,0,0.2); color:#ff5f56;">PRO</span></div>
+        <div class="rm-title">Level 4: Defensive SIEM & SOC Security Ops <span class="level-badge level-adv" style="background:rgba(255,0,0,0.15); color:var(--accent-red);">PRO</span></div>
         <ul class="rm-list">
-          <li>SOC Infrastructure Monitoring Systems Deployment</li>
-          <li>Incident Response Protocols & Forensic Chain of Custody</li>
-          <li>Active Threat Detection Pipelines & Real-time Defensive Guardrails</li>
+          <li>SOC Infrastructure Real-time Traffic Monitoring Systems</li>
+          <li>Incident Response Protocols & Forensic Trace Identification</li>
+          <li>Threat Detection Rules Deployment & Infrastructure Hardening</li>
         </ul>
       </div>
     </div>
 
-    <div style="margin-top: 32px;">
-      <div class="section-eyebrow" style="margin-bottom: 16px;">📡 Current Tech Focus Engine</div>
-      <div class="card-grid">
-        <div class="card"><h3>🧩 Architecture</h3><p>Microservices Pipeline Design patterns.</p></div>
-        <div class="card"><h3>☁️ Cloud Security</h3><p>AWS Access Management hardening structures.</p></div>
-        <div class="card"><h3>⚡ DevSecOps</h3><p>Automated static validation checks inside CI/CD.</p></div>
-        <div class="card"><h3>🤖 Automation</h3><p>AI Driven Security Analytics Logging engines.</p></div>
-      </div>
+    <div class="notice-banner" style="margin-top: 40px; border-left-color: var(--accent); background: rgba(63,185,80,0.03);">
+      <h3>⚠️ FINAL ETHICAL RULE</h3>
+      <p style="font-size: 14px; color: var(--text-muted);">সব কমান্ড এবং ল্যাব প্রোটোকল শুধুমাত্র টেস্ট ল্যাব এনভায়রনমেন্ট, লার্নিং পারপাস এবং অথোরাইজড ও পারমিটেড সিস্টেমে ব্যবহারের জন্য সীমাবদ্ধ। Unauthorized access is strictly illegal.</p>
     </div>
   </section>
 
 </div>
 
 <footer>
-  Rahat · Portfolio Profile Dashboard · All Lab Logs Preserved Verbatim · 2026
+  Rahat · Security Operations Dashboard Ecosystem · Preserved Verbatim · 2026
 </footer>
 
 <script>
-function show(id) {
-  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
+function showTab(tabId) {
+  // Hide all sections
+  document.querySelectorAll('.section').forEach(sec => sec.classList.remove('active'));
+  // Remove active state from all buttons
+  document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+  
+  // Show target section
+  document.getElementById(tabId).classList.add('active');
+  // Highlight active button
   event.target.classList.add('active');
+  
+  // Smooth scroll back to top of the tabs view area
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 </script>
