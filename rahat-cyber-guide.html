@@ -1,0 +1,1354 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rahat | Ethical Cyber Security Lab</title>
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Hind+Siliguri:wght@300;400;500;600;700&family=Orbitron:wght@600;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:       #050a0e;
+    --surface:  #0a1218;
+    --surface2: #0f1c24;
+    --border:   #0d3040;
+    --green:    #00ff88;
+    --green2:   #00cc6a;
+    --cyan:     #00d4ff;
+    --red:      #ff4757;
+    --amber:    #ffa502;
+    --purple:   #a855f7;
+    --text:     #cdd9e5;
+    --muted:    #5a7a8a;
+    --dim:      #2e4a58;
+    --scan:     rgba(0,255,136,0.04);
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box;}
+
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:'Hind Siliguri',sans-serif;
+    line-height:1.7;
+    overflow-x:hidden;
+  }
+
+  /* ── SCANLINE overlay ── */
+  body::before{
+    content:'';
+    position:fixed;inset:0;
+    background:repeating-linear-gradient(
+      to bottom,
+      transparent 0px,
+      transparent 3px,
+      rgba(0,0,0,0.08) 3px,
+      rgba(0,0,0,0.08) 4px
+    );
+    pointer-events:none;
+    z-index:999;
+    opacity:0.4;
+  }
+
+  /* ── HERO ── */
+  .hero{
+    position:relative;
+    padding:60px 24px 48px;
+    text-align:center;
+    border-bottom:1px solid var(--border);
+    overflow:hidden;
+  }
+  .hero::before{
+    content:'';
+    position:absolute;inset:0;
+    background:
+      radial-gradient(ellipse 70% 50% at 50% 0%,rgba(0,255,136,0.07) 0%,transparent 70%),
+      radial-gradient(ellipse 40% 30% at 20% 80%,rgba(0,212,255,0.04) 0%,transparent 60%);
+    pointer-events:none;
+  }
+
+  /* animated grid */
+  .hero-grid{
+    position:absolute;inset:0;
+    background-image:
+      linear-gradient(rgba(0,255,136,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,255,136,0.04) 1px, transparent 1px);
+    background-size:40px 40px;
+    animation:gridMove 20s linear infinite;
+    pointer-events:none;
+  }
+  @keyframes gridMove{
+    0%{transform:translateY(0);}
+    100%{transform:translateY(40px);}
+  }
+
+  .hero-tag{
+    display:inline-block;
+    font-family:'Share Tech Mono',monospace;
+    font-size:11px;
+    color:var(--green);
+    border:1px solid rgba(0,255,136,0.3);
+    background:rgba(0,255,136,0.06);
+    padding:5px 14px;
+    border-radius:2px;
+    letter-spacing:2px;
+    text-transform:uppercase;
+    margin-bottom:20px;
+  }
+  .hero-tag::before{content:'> ';opacity:0.5;}
+
+  .hero h1{
+    font-family:'Orbitron',sans-serif;
+    font-size:clamp(28px,6vw,58px);
+    font-weight:800;
+    line-height:1.1;
+    margin-bottom:8px;
+    color:#fff;
+  }
+  .hero h1 .g{color:var(--green);}
+  .hero h1 .c{color:var(--cyan);}
+
+  .hero-sub{
+    font-family:'Share Tech Mono',monospace;
+    font-size:14px;
+    color:var(--muted);
+    margin-bottom:28px;
+    letter-spacing:1px;
+  }
+
+  .typing-line{
+    font-family:'Share Tech Mono',monospace;
+    font-size:16px;
+    color:var(--green);
+    min-height:24px;
+  }
+  .cursor{
+    display:inline-block;
+    width:10px;height:18px;
+    background:var(--green);
+    vertical-align:middle;
+    margin-left:3px;
+    animation:blink 1s step-end infinite;
+  }
+  @keyframes blink{0%,100%{opacity:1;}50%{opacity:0;}}
+
+  .hero-badges{
+    display:flex;
+    justify-content:center;
+    gap:12px;
+    flex-wrap:wrap;
+    margin-top:28px;
+  }
+  .hbadge{
+    font-family:'Share Tech Mono',monospace;
+    font-size:11px;
+    padding:5px 12px;
+    border-radius:2px;
+    border:1px solid;
+  }
+  .hbadge.g{color:var(--green);border-color:rgba(0,255,136,0.3);background:rgba(0,255,136,0.06);}
+  .hbadge.c{color:var(--cyan);border-color:rgba(0,212,255,0.3);background:rgba(0,212,255,0.06);}
+  .hbadge.r{color:var(--red);border-color:rgba(255,71,87,0.3);background:rgba(255,71,87,0.06);}
+  .hbadge.p{color:var(--purple);border-color:rgba(168,85,247,0.3);background:rgba(168,85,247,0.06);}
+
+  /* ── WARNING BANNER ── */
+  .warn-banner{
+    background:linear-gradient(135deg,rgba(255,165,2,0.08),rgba(255,71,87,0.06));
+    border:1px solid rgba(255,165,2,0.25);
+    border-left:3px solid var(--amber);
+    margin:24px auto;
+    max-width:900px;
+    padding:18px 24px;
+    border-radius:0 6px 6px 0;
+    font-size:14px;
+  }
+  .warn-banner .wt{
+    font-family:'Orbitron',sans-serif;
+    font-size:12px;
+    color:var(--amber);
+    letter-spacing:2px;
+    margin-bottom:10px;
+  }
+  .warn-row{display:flex;gap:32px;flex-wrap:wrap;}
+  .warn-col{flex:1;min-width:180px;}
+  .warn-col .wh{font-size:12px;font-weight:700;margin-bottom:6px;}
+  .warn-col.ok .wh{color:var(--green);}
+  .warn-col.no .wh{color:var(--red);}
+  .warn-col ul{list-style:none;font-size:13px;color:var(--muted);}
+  .warn-col.ok li::before{content:'✔ ';color:var(--green);}
+  .warn-col.no li::before{content:'✖ ';color:var(--red);}
+
+  /* ── NAV ── */
+  .nav-bar{
+    position:sticky;top:0;z-index:100;
+    background:rgba(5,10,14,0.95);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--border);
+    overflow-x:auto;
+    padding:0 24px;
+  }
+  .nav-bar::-webkit-scrollbar{height:2px;}
+  .nav-bar::-webkit-scrollbar-thumb{background:var(--dim);}
+  .nav-inner{
+    display:inline-flex;gap:2px;
+    padding:8px 0;
+    white-space:nowrap;
+  }
+  .nbtn{
+    background:none;border:none;
+    color:var(--muted);
+    font-family:'Share Tech Mono',monospace;
+    font-size:12px;
+    padding:7px 14px;
+    border-radius:3px;
+    cursor:pointer;
+    transition:all .2s;
+    letter-spacing:.5px;
+  }
+  .nbtn:hover{color:var(--text);background:var(--surface2);}
+  .nbtn.active{color:var(--green);background:rgba(0,255,136,0.08);border:1px solid rgba(0,255,136,0.15);}
+
+  /* ── LAYOUT ── */
+  .container{max-width:960px;margin:0 auto;padding:36px 24px;}
+  .section{display:none;}
+  .section.active{display:block;}
+
+  /* ── SECTION HEADER ── */
+  .sec-head{margin-bottom:28px;padding-bottom:16px;border-bottom:1px solid var(--border);}
+  .sec-eye{
+    font-family:'Share Tech Mono',monospace;
+    font-size:11px;
+    color:var(--green);
+    letter-spacing:2px;
+    text-transform:uppercase;
+    margin-bottom:6px;
+  }
+  .sec-eye::before{content:'[  ';} .sec-eye::after{content:'  ]';}
+  .sec-head h2{
+    font-family:'Orbitron',sans-serif;
+    font-size:22px;
+    font-weight:600;
+    color:#fff;
+    margin-bottom:6px;
+  }
+  .sec-head p{font-size:14px;color:var(--muted);}
+
+  /* ── CMD TERMINAL ── */
+  .terminal{
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:6px;
+    overflow:hidden;
+    margin-bottom:20px;
+    box-shadow:0 0 20px rgba(0,255,136,0.03);
+  }
+  .terminal:hover{border-color:rgba(0,255,136,0.2);}
+  .t-bar{
+    display:flex;align-items:center;gap:10px;
+    background:var(--surface2);
+    border-bottom:1px solid var(--border);
+    padding:9px 14px;
+  }
+  .t-dots{display:flex;gap:5px;}
+  .t-dots span{width:9px;height:9px;border-radius:50%;}
+  .t-dots span:nth-child(1){background:#ff5f56;}
+  .t-dots span:nth-child(2){background:#ffbd2e;}
+  .t-dots span:nth-child(3){background:#27c93f;}
+  .t-title{
+    font-family:'Share Tech Mono',monospace;
+    font-size:11px;color:var(--muted);
+    flex:1;
+  }
+  .t-os{
+    font-family:'Share Tech Mono',monospace;
+    font-size:10px;padding:2px 7px;border-radius:2px;
+    font-weight:600;letter-spacing:.5px;
+  }
+  .os-win{background:rgba(0,120,212,0.15);color:#4fc3f7;border:1px solid rgba(79,195,247,0.2);}
+  .os-lin{background:rgba(0,255,136,0.08);color:var(--green);border:1px solid rgba(0,255,136,0.2);}
+  .os-both{background:rgba(168,85,247,0.1);color:var(--purple);border:1px solid rgba(168,85,247,0.2);}
+
+  .t-body{padding:16px;}
+
+  .cmd-item{padding:10px 0;border-bottom:1px solid rgba(13,48,64,0.6);}
+  .cmd-item:last-child{border-bottom:none;}
+
+  .cmd-line{
+    display:flex;align-items:flex-start;gap:8px;
+    font-family:'Share Tech Mono',monospace;
+    font-size:13px;
+    background:rgba(0,255,136,0.04);
+    border:1px solid rgba(0,255,136,0.1);
+    padding:8px 12px;
+    border-radius:4px;
+    margin-bottom:6px;
+    word-break:break-all;
+  }
+  .prompt{color:var(--green);font-weight:700;flex-shrink:0;}
+  .cmd-text{color:#e6f4f0;}
+
+  .explain{font-size:13px;padding-left:4px;}
+  .explain .bn{color:var(--text);display:block;margin-bottom:2px;}
+  .explain .en{color:var(--muted);font-style:italic;font-size:12px;}
+  .explain .out{
+    display:block;
+    margin-top:6px;
+    font-family:'Share Tech Mono',monospace;
+    font-size:11px;
+    color:var(--cyan);
+    background:rgba(0,212,255,0.04);
+    border-left:2px solid var(--cyan);
+    padding:4px 8px;
+    border-radius:0 3px 3px 0;
+  }
+
+  /* ── NOTE / TIP / DANGER ── */
+  .note{
+    padding:12px 16px;
+    border-radius:0 5px 5px 0;
+    margin:12px 0;
+    font-size:13px;
+  }
+  .note.green{background:rgba(0,255,136,0.05);border-left:3px solid var(--green);}
+  .note.cyan{background:rgba(0,212,255,0.05);border-left:3px solid var(--cyan);}
+  .note.amber{background:rgba(255,165,2,0.06);border-left:3px solid var(--amber);}
+  .note.red{background:rgba(255,71,87,0.06);border-left:3px solid var(--red);}
+  .note strong{font-family:'Share Tech Mono',monospace;font-size:11px;letter-spacing:1px;display:block;margin-bottom:4px;}
+  .note.green strong{color:var(--green);}
+  .note.cyan strong{color:var(--cyan);}
+  .note.amber strong{color:var(--amber);}
+  .note.red strong{color:var(--red);}
+
+  /* ── TABLE ── */
+  .tbl-wrap{overflow-x:auto;margin-bottom:20px;}
+  table{width:100%;border-collapse:collapse;font-size:13px;}
+  th{
+    background:var(--surface2);
+    color:var(--muted);
+    font-family:'Share Tech Mono',monospace;
+    font-size:10px;
+    letter-spacing:1px;
+    text-transform:uppercase;
+    padding:9px 12px;
+    text-align:left;
+    border-bottom:1px solid var(--border);
+  }
+  td{
+    padding:9px 12px;
+    border-bottom:1px solid rgba(13,48,64,0.5);
+    vertical-align:top;
+  }
+  tr:hover td{background:rgba(0,255,136,0.02);}
+  td:first-child{
+    font-family:'Share Tech Mono',monospace;
+    font-size:12px;
+    color:var(--green);
+  }
+  .bn-td{color:var(--text);display:block;}
+  .en-td{color:var(--muted);font-size:11px;font-style:italic;}
+
+  /* level */
+  .lv{
+    display:inline-block;
+    font-family:'Share Tech Mono',monospace;
+    font-size:10px;padding:2px 7px;border-radius:2px;
+    font-weight:700;letter-spacing:.5px;
+  }
+  .lv-b{background:rgba(0,255,136,0.1);color:var(--green);border:1px solid rgba(0,255,136,0.2);}
+  .lv-m{background:rgba(255,165,2,0.1);color:var(--amber);border:1px solid rgba(255,165,2,0.2);}
+  .lv-a{background:rgba(255,71,87,0.1);color:var(--red);border:1px solid rgba(255,71,87,0.2);}
+
+  /* ── CARD GRID ── */
+  .cg{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;margin-bottom:24px;}
+  .card{
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:5px;
+    padding:18px;
+    transition:border-color .2s;
+  }
+  .card:hover{border-color:rgba(0,255,136,0.25);}
+  .card-icon{font-size:22px;margin-bottom:10px;}
+  .card h3{
+    font-family:'Orbitron',sans-serif;
+    font-size:13px;font-weight:600;
+    color:#fff;margin-bottom:7px;
+  }
+  .card p{font-size:13px;color:var(--muted);}
+
+  /* ── FOOTER ── */
+  footer{
+    border-top:1px solid var(--border);
+    text-align:center;
+    padding:28px 24px;
+    font-family:'Share Tech Mono',monospace;
+    font-size:11px;
+    color:var(--dim);
+    letter-spacing:1px;
+  }
+  footer span{color:var(--green);}
+
+  @media(max-width:600px){
+    .warn-row{flex-direction:column;}
+    .cg{grid-template-columns:1fr;}
+  }
+</style>
+</head>
+<body>
+
+<!-- ══════ HERO ══════ -->
+<div class="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-tag">Ethical Lab · SOC Training · Blue Team</div>
+  <h1><span class="g">RAHAT</span><br><span style="font-size:.45em;color:var(--text);font-weight:600;letter-spacing:2px;">CYBER SECURITY</span> <span class="c" style="font-size:.45em;">FIELD GUIDE</span></h1>
+  <div class="hero-sub">Network Recon · System Forensics · Port Discovery · Defense</div>
+  <div class="typing-line" id="typer"></div><span class="cursor"></span>
+  <div class="hero-badges">
+    <span class="hbadge g">Full Stack Dev</span>
+    <span class="hbadge c">SOC / Blue Team</span>
+    <span class="hbadge p">DevOps</span>
+    <span class="hbadge r">Ethical Hacking Lab</span>
+  </div>
+</div>
+
+<!-- ══════ WARNING BANNER ══════ -->
+<div class="warn-banner" style="margin:24px auto;max-width:900px;border-radius:0 6px 6px 0;">
+  <div class="wt">⚠ ETHICAL NOTICE — অবশ্যই পড়ো</div>
+  <div class="warn-row">
+    <div class="warn-col ok">
+      <div class="wh">✔ শুধুমাত্র এর জন্য</div>
+      <ul>
+        <li>Cyber Security Learning</li>
+        <li>SOC / Blue Team Training</li>
+        <li>Authorized Lab (VM, Kali, Sandbox)</li>
+        <li>নিজের network audit</li>
+      </ul>
+    </div>
+    <div class="warn-col no">
+      <div class="wh">✖ কখনো না</div>
+      <ul>
+        <li>Unauthorized scanning</li>
+        <li>Illegal network access</li>
+        <li>অন্যের server-এ attack</li>
+        <li>Real target-এ test</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ══════ NAV ══════ -->
+<div class="nav-bar">
+  <div class="nav-inner">
+    <button class="nbtn active" onclick="show('recon')">🌐 Network Recon</button>
+    <button class="nbtn" onclick="show('port')">🔎 Port & Services</button>
+    <button class="nbtn" onclick="show('sysforensic')">🖥 System Forensic</button>
+    <button class="nbtn" onclick="show('firewall')">🛡 Firewall & Defense</button>
+    <button class="nbtn" onclick="show('wifi')">📡 WiFi Analysis</button>
+    <button class="nbtn" onclick="show('logs')">📋 Log Analysis</button>
+    <button class="nbtn" onclick="show('tools')">🧰 Tools Setup</button>
+    <button class="nbtn" onclick="show('cheatsheet')">📄 Cheat Sheet</button>
+  </div>
+</div>
+
+<div class="container">
+
+<!-- ══════════════════════════════════════
+     1. NETWORK RECON
+══════════════════════════════════════ -->
+<section id="recon" class="section active">
+  <div class="sec-head">
+    <div class="sec-eye">Network Reconnaissance</div>
+    <h2>🌐 Network Recon Commands</h2>
+    <p>নিজের network বোঝার জন্য সব basic থেকে advanced command — বাংলায় ব্যাখ্যাসহ।</p>
+  </div>
+
+  <!-- Basic Network Info -->
+  <div class="terminal">
+    <div class="t-bar">
+      <div class="t-dots"><span></span><span></span><span></span></div>
+      <span class="t-title">📌 Basic Network Info — নিজের device-এর তথ্য</span>
+      <span class="t-os os-win">WINDOWS</span>
+    </div>
+    <div class="t-body">
+      <div class="cmd-item">
+        <div class="cmd-line"><span class="prompt">C:\&gt;</span><span class="cmd-text">ipconfig /all</span></div>
+        <div class="explain">
+          <span class="bn">👉 তোমার device-এর IP address, Subnet Mask, Default Gateway, DNS Server, MAC address সব দেখায়।</span>
+          <span class="en">Shows all network adapter details including IP, MAC, DNS</span>
+          <span class="out">▸ IPv4 Address: 192.168.1.105 | MAC: A4-C3-F0-XX-XX | DNS: 8.8.8.8</span>
+        </div>
+      </div>
+      <div class="cmd-item">
+        <div class="cmd-line"><span class="prompt">C:\&gt;</span><span class="cmd-text">ipconfig /release</span></div>
+        <div class="explain">
+          <span class="bn">👉 DHCP থেকে পাওয়া IP address ছেড়ে দাও। Network reset করার আগে ব্যবহার করো।</span>
+          <span class="en">Releases current DHCP-assigned IP address</span>
+        </div>
+      </div>
+      <div class="cmd-item">
+        <div class="cmd-line"><span class="prompt">C:\&gt;</span><span class="cmd-text">ipconfig /renew</span></div>
+        <div class="explain">
+          <span class="bn">👉 DHCP server থেকে নতুন IP নাও। Release-এর পর ব্যবহার করো।</span>
+          <span class="en">Requests a new IP from DHCP server</span>
+        </div>
+      </div>
+      <div class="cmd-item">
+        <div class="cmd-line"><span class="prompt">C:\&gt;</span><span class="cmd-text">ipconfig /flushdns</span></div>
+        <div class="explain">
+          <span class="bn">👉 DNS cache পরিষ্কার করো। Website access-এ সমস্যা হলে এটি চেষ্টা করো।</span>
+          <span class="en">Clears DNS resolver cache — fixes stale DNS entries</span>
+        </div>
+      </div>
+      <div class="cmd-item">
+        <div class="cmd-line"><span class="prompt">C:\&gt;</span><span class="cmd-text">arp -a</span></div>
+        <div class="explain">
+          <span class="bn">👉 ARP table দেখাও — কোন IP-এর কোন MAC address আছে। Network-এ কারা আছে বুঝতে পারবে।</span>
+          <span class="en">Shows ARP cache — IP to MAC address mapping on your LAN</span>
+          <span class="out">▸ Interface: 192.168.1.1 → MAC: 18-65-90-XX-XX (router)</span>
+        </div>
+      </div>
+      <div class="cmd-item">
+        <div class="cmd-line"><span class="prompt">C:\&gt;</span><span class="cmd-text">netstat -ano</span></div>
+        <div class="explain">
+          <span class="bn">👉 সব active network connection দেখাও — কোন port open, কোন process ব্যবহার করছে PID সহ।</span>
+          <span class="en">Shows all connections with process IDs — great for finding suspicious connections</span>
+          <span class="out">▸ TCP 0.0.0.0:443 LISTENING PID:4 | TCP 192.168.1.105:52341 ESTABLISHED</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="terminal">
+    <div class="t-bar">
+      <div class="t-dots"><span></span><span></span><span></span></div>
+      <span class="t-title">📌 Linux Network Info</span>
+      <span class="t-os os-lin">LINUX / KALI</span>
+    </div>
+    <div class="t-body">
+      <div class="cmd-item">
+        <div class="cmd-line"><span class="prompt">$</span><span class="cmd-text">ip a</span></div>
+        <div class="explain">
+          <span class="bn">👉 সব network interface-এর IP, MAC address দেখাও। <code>ifconfig</code>-এর নতুন version।</span>
+          <span class="en">Modern replacement for ifconfig — shows all interfaces</span>
+        </div>
+      </div>
+      <div class="cmd-item">
+        <div class="cmd-line"><span class="prompt">$</span><span class="cmd-text">ip route show</span></div>
+        <div class="explain">
+          <span class="bn">👉 routing table দেখাও — packet কোন gateway দিয়ে যাচ্ছে।</span>
+          <span class="en">Shows routing table — which gateway handles which subnet</span>
+          <span class="out">▸ default via 192.168.1.1 dev eth0 | 192.168.1.0/24 dev eth0</span>
+        </div>
+      </div>
+      <div class="cmd-item">
+        <div class="cmd-line"><span class="prompt">$</span><span class="cmd-text">ip neigh show</span></div>
+        <div class="explain">
+          <span class="bn">👉 ARP cache দেখাও (Linux version)। Local network-এর device গুলো দেখতে পারবে।</span>
+          <span class="en">Shows ARP neighbors on Linux</span>
+        </div>
+      </div>
+      <div class="cmd-item">
+        <div class="cmd-line"><span class="prompt">$</span><span class="cmd-text">hostname -I</span></div>
+        <div class="explain">
+          <span class="bn">👉 শুধু তোমার IP address দেখাও — দ্রুত চেক করতে।</span>
+          <span class="en">Quick way to get your IP address only</span>
+        </div>
+      </div>
+      <div class="cmd-item">
+        <div class="cmd-line"><span class="prompt">$</span><span class="cmd-text">cat /etc/resolv.conf</span></div>
+        <div class="explain">
+          <span class="bn">👉 DNS server configuration দেখাও।</span>
+          <span class="en">Shows configured DNS servers on Linux</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Connectivity -->
+  <div class="terminal">
+    <div class="t-bar">
+      <div class="t-dots"><span></span><span></span><span></span></div>
+      <span class="t-title">📡 Connectivity Check — সংযোগ পরীক্ষা</span>
+      <span class="t-os os-both">BOTH</span>
+    </div>
+    <div class="t-body">
+      <div class="cmd-item">
+        <div class="cmd-line"><span class="prompt">$</span><span class="cmd-text">ping google.com -c 4</span></div>
+        <div class="explain">
+          <span class="bn">👉 Internet কাজ করছে কিনা test করো। ৪টি packet পাঠিয়ে response time দেখো। Windows-এ <code>-n 4</code> ব্যবহার করো।</span>
+          <span class="en">Tests connectivity — -c 4 sends 4 packets (Linux); use -n 4 on Windows</span>
+          <span class="out">▸ 64 bytes from 142.250.x.x: icmp_seq=1 ttl=118 time=12.5 ms</span>
+        </div>
+      </div>
+      <div class="cmd-item">
+        <div class="cmd-line"><span class="prompt">$</span><span class="cmd-text">ping -t 192.168.1.1</span></div>
+        <div class="explain">
+          <span class="bn">👉 Router-কে continuous ping করো (Windows: -t = infinite)। Ctrl+C দিয়ে থামাও।</span>
+          <span class="en">Continuous ping to router — Windows (-t), Linux (no flag needed)</span>
+        </div>
+      </div>
+      <div class="cmd-item">
+        <div class="cmd-line"><span class="prompt">$</span><span class="cmd-text">traceroute google.com</span></div>
+        <div class="explain">
+          <span class="bn">👉 Data কোন কোন router hop করে গন্তব্যে পৌঁছাচ্ছে দেখাও। Network latency বোঝার জন্য সেরা। Windows-এ <code>tracert</code>।</span>
+          <span class="en">Shows every hop (router) between you and the destination. Windows: tracert</span>
+          <span class="out">▸ 1: 192.168.1.1 (1ms) → 2: 10.0.0.1 (8ms) → 3: 103.x.x.x (22ms)</span>
+        </div>
+      </div>
+      <div class="cmd-item">
+        <div class="cmd-line"><span class="prompt">$</span><span class="cmd-text">mtr google.com</span></div>
+        <div class="explain">
+          <span class="bn">👉 Traceroute + Ping একসাথে, real-time update। Network troubleshoot-এর সেরা tool। Linux-এ <code>sudo apt install mtr</code>।</span>
+          <span class="en">Real-time combination of traceroute and ping — best for diagnosis</span>
+        </div>
+      </div>
+      <div class="cmd-item">
+        <div class="cmd-line"><span class="prompt">$</span><span class="cmd-text">curl -I https://example.com</span></div>
+        <div class="explain">
+          <span class="bn">👉 Website-এর HTTP header দেখাও। Server কোন software ব্যবহার করছে, status code কত দেখা যাবে।</span>
+          <span class="en">Fetches HTTP headers only — reveals server software, status codes</span>
+          <span class="out">▸ HTTP/2 200 | Server: cloudflare | X-Frame-Options: DENY</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DNS Analysis -->
+  <div class="terminal">
+    <div class="t-bar">
+      <div class="t-dots"><span></span><span></span><span></span></div>
+      <span class="t-title">🔍 DNS Analysis — Domain তথ্য</span>
+      <span class="t-os os-both">BOTH</span>
+    </div>
+    <div class="t-body">
+      <div class="cmd-item">
+        <div class="cmd-line"><span class="prompt">$</span><span class="cmd-text">nslookup example.com</span></div>
+        <div class="explain">
+          <span class="bn">👉 Domain name → IP address convert করো। কোন DNS server ব্যবহার হচ্ছে তাও দেখাবে।</span>
+          <span class="en">Resolves domain to IP — shows which DNS server answered</span>
+          <span class="out">▸ Server: 8.8.8.8 | Address: 93.184.216.34</span>
+        </div>
+      </div>
+      <div class="cmd-item">
+        <div class="cmd-line"><span class="prompt">$</span><span class="cmd-text">nslookup -type=MX example.com</span></div>
+        <div class="explain">
+          <span class="bn">👉 Mail server (MX record) বের করো। কোথায় email যাচ্ছে তা বোঝা যায়।</span>
+          <span class="en">Finds mail exchange (MX) records for email routing</span>
+        </div>
+      </div>
+      <div class="cmd-item">
+        <div class="cmd-line"><span class="prompt">$</span><span class="cmd-text">dig example.com</span></div>
+        <div class="explain">
+          <span class="bn">👉 Advanced DNS analysis। A, MX, NS, TXT record সব দেখাবে। Nslookup-এর চেয়ে বেশি তথ্য দেয়।</span>
+          <span class="en">Detailed DNS query — more info than nslookup. Linux/Kali built-in.</span>
+        </div>
+      </div>
+      <div class="cmd-item">
+        <div class="cmd-line"><span class="prompt">$</span><span class="cmd-text">dig example.com ANY +short</span></div>
+        <div class="explain">
+          <span class="bn">👉 সব DNS record সংক্ষেপে দেখাও। Quick overview-এর জন্য।</span>
+          <span class="en">Shows all DNS record types concisely</span>
+        </div>
+      </div>
+      <div class="cmd-item">
+        <div class="cmd-line"><span class="prompt">$</span><span class="cmd-text">dig -x 8.8.8.8</span></div>
+        <div class="explain">
+          <span class="bn">👉 Reverse DNS — IP থেকে hostname বের করো। কোন কোম্পানির IP তা বোঝা যায়।</span>
+          <span class="en">Reverse DNS lookup — IP to hostname</span>
+          <span class="out">▸ 8.8.8.8.in-addr.arpa → dns.google</span>
+        </div>
+      </div>
+      <div class="cmd-item">
+        <div class="cmd-line"><span class="prompt">$</span><span class="cmd-text">whois example.com</span></div>
+        <div class="explain">
+          <span class="bn">👉 Domain registration তথ্য — কে কিনেছে, কবে expire হবে, registrar কে।</span>
+          <span class="en">Domain registration info — owner, expiry, registrar</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     2. PORT & SERVICE DISCOVERY
+══════════════════════════════════════ -->
+<section id="port" class="section">
+  <div class="sec-head">
+    <div class="sec-eye">Port & Service Discovery</div>
+    <h2>🔎 Port Scanning — LAB ONLY</h2>
+    <p>⚠️ শুধুমাত্র নিজের network বা authorized lab-এ ব্যবহার করো। অনুমতি ছাড়া scanning বেআইনি।</p>
+  </div>
+
+  <div class="note amber"><strong>⚠ LAB ONLY</strong>নিচের commands শুধু <code>192.168.x.x</code> (local), VM, বা authorized target-এ চালাও। Public IP-তে scan করা illegal হতে পারে।</div>
+
+  <div class="terminal">
+    <div class="t-bar">
+      <div class="t-dots"><span></span><span></span><span></span></div>
+      <span class="t-title">🛰 Nmap — Network Mapper (সবচেয়ে শক্তিশালী)</span>
+      <span class="t-os os-lin">LINUX / KALI</span>
+    </div>
+    <div class="t-body">
+      <div class="cmd-item">
+        <div class="cmd-line"><span class="prompt">$</span><span class="cmd-text">nmap 192.168.1.1</span></div>
+        <div class="explain">
+          <span class="bn">👉 একটি IP-তে basic scan। কোন port open আছে দেখাবে।</span>
+          <span class="en">Basic port scan on a single host</span>
+          <span class="out">▸ PORT 22/tcp open ssh | 80/tcp open http | 443/tcp open https</span>
+        </div>
+      </div>
+      <div class="cmd-item">
+        <div class="cmd-line"><span class="prompt">$</span><span class="cmd-text">nmap -sV 192.168.1.1</span></div>
+        <div class="explain">
+          <span class="bn">👉 Service version detection — কোন port-এ কোন software কোন version চলছে বের করো। Security audit-এর জন্য গুরুত্বপূর্ণ।</span>
+          <span class="en">Detects service versions running on open ports</span>
+          <span class="out">▸ 22/tcp open ssh OpenSSH 8.9 | 80/tcp open http Apache 2.4.54</span>
+        </div>
+      </div>
+      <div class="cmd-item">
+        <div class="cmd-line"><span class="prompt">$</span><span class="cmd-text">nmap -sV -O 192.168.1.1</span></div>
+        <div class="explain">
+          <span class="bn">👉 OS detection যোগ করো। কোন operating system চলছে অনুমান করে।</span>
+          <span class="en">Adds OS detection — guesses the target's operating system</span>
+        </div>
+      </div>
+      <div class="cmd-item">
+        <div class="cmd-line"><span class="prompt">$</span><span class="cmd-text">nmap -sC -sV -oN result.txt 192.168.1.1</span></div>
+        <div class="explain">
+          <span class="bn">👉 Default scripts চালাও + result ফাইলে সেভ করো। <code>-sC</code> = default NSE scripts, <code>-oN</code> = output to file।</span>
+          <span class="en">Runs default scripts, detects versions, saves output to file</span>
+        </div>
+      </div>
+      <div class="cmd-item">
+        <div class="cmd-line"><span class="prompt">$</span><span class="cmd-text">nmap -p 80,443,22,3306 192.168.1.1</span></div>
+        <div class="explain">
+          <span class="bn">👉 নির্দিষ্ট port-গুলো চেক করো। Web (80,443), SSH (22), MySQL (3306)।</span>
+          <span class="en">Scans only specific ports — faster and targeted</span>
+        </div>
+      </div>
+      <div class="cmd-item">
+        <div class="cmd-line"><span class="prompt">$</span><span class="cmd-text">nmap -p- 192.168.1.1</span></div>
+        <div class="explain">
+          <span class="bn">👉 সব ৬৫৫৩৫টি port scan করো। সময় লাগে কিন্তু কিছু মিস হয় না।</span>
+          <span class="en">Scans all 65535 ports — thorough but slow</span>
+        </div>
+      </div>
+      <div class="cmd-item">
+        <div class="cmd-line"><span class="prompt">$</span><span class="cmd-text">nmap -sn 192.168.1.0/24</span></div>
+        <div class="explain">
+          <span class="bn">👉 Network-এ কোন কোন device চালু আছে দেখাও (ping scan)। Port scan ছাড়াই। পুরো subnet-এ।</span>
+          <span class="en">Host discovery on entire subnet — shows which devices are online</span>
+          <span class="out">▸ 192.168.1.1 (router) | 192.168.1.105 (your PC) | 192.168.1.110 (phone)</span>
+        </div>
+      </div>
+      <div class="cmd-item">
+        <div class="cmd-line"><span class="prompt">$</span><span class="cmd-text">nmap --script vuln 192.168.1.1</span></div>
+        <div class="explain">
+          <span class="bn">👉 Known vulnerability check করো (LAB ONLY)। Common CVE গুলো scan করে।</span>
+          <span class="en">Runs vulnerability detection scripts — LAB/authorized targets ONLY</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="terminal">
+    <div class="t-bar">
+      <div class="t-dots"><span></span><span></span><span></span></div>
+      <span class="t-title">🔌 Port Status — নিজের machine-এ</span>
+      <span class="t-os os-both">BOTH</span>
+    </div>
+    <div class="t-body">
+      <div class="cmd-item">
+        <div class="cmd-line"><span class="prompt">$</span><span class="cmd-text">ss -tulpn</span></div>
+        <div class="explain">
+          <span class="bn">👉 কোন port কোন application ব্যবহার করছে দেখাও। <code>-t</code>=TCP, <code>-u</code>=UDP, <code>-l</code>=listening, <code>-p</code>=process, <code>-n</code>=numeric। <code>netstat</code>-এর modern version।</span>
+          <span class="en">Shows all listening ports with their programs — modern netstat</span>
+          <span class="out">▸ tcp LISTEN 0.0.0.0:80 users:(("nginx",pid=1234))</span>
+        </div>
+      </div>
+      <div class="cmd-item">
+        <div class="cmd-line"><span class="prompt">$</span><span class="cmd-text">ss -tulpn | grep :80</span></div>
+        <div class="explain">
+          <span class="bn">👉 শুধু port 80 ব্যবহার করছে কে দেখাও। <code>grep</code> দিয়ে filter করা।</span>
+          <span class="en">Filters output to show only processes using port 80</span>
+        </div>
+      </div>
+      <div class="cmd-item">
+        <div class="cmd-line"><span class="prompt">C:\&gt;</span><span class="cmd-text">netstat -ano | findstr :443</span></div>
+        <div class="explain">
+          <span class="bn">👉 Windows-এ port 443 কে ব্যবহার করছে দেখাও। <code>findstr</code> = Windows-এর grep।</span>
+          <span class="en">Windows equivalent — filters netstat by port 443</span>
+        </div>
+      </div>
+      <div class="cmd-item">
+        <div class="cmd-line"><span class="prompt">C:\&gt;</span><span class="cmd-text">tasklist /fi "pid eq 4"</span></div>
+        <div class="explain">
+          <span class="bn">👉 নির্দিষ্ট PID-এর process নাম বের করো। netstat-এ PID পেলে এই command দিয়ে process খুঁজে পাও।</span>
+          <span class="en">Finds process name by PID — use PID from netstat output</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     3. SYSTEM FORENSIC
+══════════════════════════════════════ -->
+<section id="sysforensic" class="section">
+  <div class="sec-head">
+    <div class="sec-eye">System Analysis</div>
+    <h2>🖥 System Forensic Commands</h2>
+    <p>Running processes, user sessions, startup items — সব forensic-style analysis।</p>
+  </div>
+
+  <div class="terminal">
+    <div class="t-bar">
+      <div class="t-dots"><span></span><span></span><span></span></div>
+      <span class="t-title">🏃 Running Processes</span>
+      <span class="t-os os-both">BOTH</span>
+    </div>
+    <div class="t-body">
+      <div class="cmd-item">
+        <div class="cmd-line"><span class="prompt">C:\&gt;</span><span class="cmd-text">tasklist</span></div>
+        <div class="explain">
+          <span class="bn">👉 Windows-এ সব চলমান প্রোগ্রাম দেখাও — নাম, PID, memory usage সহ।</span>
+          <span class="en">Lists all running Windows processes with PID and memory</span>
+          <span class="out">▸ chrome.exe  3421  Console  1  524,312 K</span>
+        </div>
+      </div>
+      <div class="cmd-item">
+        <div class="cmd-line"><span class="prompt">C:\&gt;</span><span class="cmd-text">tasklist /v</span></div>
+        <div class="explain">
+          <span class="bn">👉 Verbose mode — window title, user, CPU time সহ বিস্তারিত দেখাও।</span>
+          <span class="en">Verbose process list with window titles and usernames</span>
+        </div>
+      </div>
+      <div class="cmd-item">
+        <div class="cmd-line"><span class="prompt">C:\&gt;</span><span class="cmd-text">taskkill /PID 1234 /F</span></div>
+        <div class="explain">
+          <span class="bn">👉 নির্দিষ্ট process force-kill করো। Suspicious process বন্ধ করতে। <code>/F</code> = force।</span>
+          <span class="en">Force-kills a process by PID — useful for stopping suspicious processes</span>
+        </div>
+      </div>
+      <div class="cmd-item">
+        <div class="cmd-line"><span class="prompt">$</span><span class="cmd-text">ps aux</span></div>
+        <div class="explain">
+          <span class="bn">👉 Linux-এ সব process দেখাও। <code>a</code>=all users, <code>u</code>=user format, <code>x</code>=no terminal processes।</span>
+          <span class="en">Lists all Linux processes — a=all, u=user-friendly, x=include daemons</span>
+          <span class="out">▸ USER  PID %CPU %MEM COMMAND | root  1  0.0  0.1  systemd</span>
+        </div>
+      </div>
+      <div class="cmd-item">
+        <div class="cmd-line"><span class="prompt">$</span><span class="cmd-text">ps aux | grep apache</span></div>
+        <div class="explain">
+          <span class="bn">👉 শুধু apache-র process দেখাও। যেকোনো process নাম দিয়ে filter করতে পারো।</span>
+          <span class="en">Filters processes by name — replace "apache" with any process</span>
+        </div>
+      </div>
+      <div class="cmd-item">
+        <div class="cmd-line"><span class="prompt">$</span><span class="cmd-text">top</span></div>
+        <div class="explain">
+          <span class="bn">👉 Real-time process monitor। CPU, Memory সব দেখাবে live। <code>q</code> দিয়ে বের হও। <code>htop</code> আরও সুন্দর।</span>
+          <span class="en">Real-time process monitor — press q to exit. htop is more visual.</span>
+        </div>
+      </div>
+      <div class="cmd-item">
+        <div class="cmd-line"><span class="prompt">$</span><span class="cmd-text">kill -9 1234</span></div>
+        <div class="explain">
+          <span class="bn">👉 Linux-এ PID দিয়ে process kill করো। <code>-9</code> = SIGKILL (force)।</span>
+          <span class="en">Force-kills a process on Linux using SIGKILL signal</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="terminal">
+    <div class="t-bar">
+      <div class="t-dots"><span></span><span></span><span></span></div>
+      <span class="t-title">👤 User & Session Analysis</span>
+      <span class="t-os os-both">BOTH</span>
+    </div>
+    <div class="t-body">
+      <div class="cmd-item">
+        <div class="cmd-line"><span class="prompt">C:\&gt;</span><span class="cmd-text">net user</span></div>
+        <div class="explain">
+          <span class="bn">👉 Windows-এ সব local user account দেখাও। Unauthorized account আছে কিনা check করো।</span>
+          <span class="en">Lists all local Windows user accounts</span>
+        </div>
+      </div>
+      <div class="cmd-item">
+        <div class="cmd-line"><span class="prompt">C:\&gt;</span><span class="cmd-text">net user username /domain</span></div>
+        <div class="explain">
+          <span class="bn">👉 নির্দিষ্ট user-এর বিস্তারিত তথ্য — group membership, last login, password expiry।</span>
+          <span class="en">Detailed info on a specific user — groups, last logon, password status</span>
+        </div>
+      </div>
+      <div class="cmd-item">
+        <div class="cmd-line"><span class="prompt">C:\&gt;</span><span class="cmd-text">query session</span></div>
+        <div class="explain">
+          <span class="bn">👉 কে এখন logged in আছে, কোন session active তা দেখাও।</span>
+          <span class="en">Shows active user sessions on Windows</span>
+        </div>
+      </div>
+      <div class="cmd-item">
+        <div class="cmd-line"><span class="prompt">$</span><span class="cmd-text">who</span></div>
+        <div class="explain">
+          <span class="bn">👉 Linux-এ কে এখন logged in আছে।</span>
+          <span class="en">Shows who is currently logged into the Linux system</span>
+        </div>
+      </div>
+      <div class="cmd-item">
+        <div class="cmd-line"><span class="prompt">$</span><span class="cmd-text">last -n 20</span></div>
+        <div class="explain">
+          <span class="bn">👉 শেষ ২০টি login history দেখাও। কখন কে login করেছে, logout করেছে।</span>
+          <span class="en">Shows last 20 login/logout events — forensic timeline</span>
+        </div>
+      </div>
+      <div class="cmd-item">
+        <div class="cmd-line"><span class="prompt">$</span><span class="cmd-text">cat /etc/passwd | awk -F: '{print $1}'</span></div>
+        <div class="explain">
+          <span class="bn">👉 Linux-এ সব user account-এর list দেখাও।</span>
+          <span class="en">Lists all user accounts on Linux system</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="terminal">
+    <div class="t-bar">
+      <div class="t-dots"><span></span><span></span><span></span></div>
+      <span class="t-title">💾 Disk & File System</span>
+      <span class="t-os os-both">BOTH</span>
+    </div>
+    <div class="t-body">
+      <div class="cmd-item">
+        <div class="cmd-line"><span class="prompt">$</span><span class="cmd-text">df -h</span></div>
+        <div class="explain">
+          <span class="bn">👉 Disk usage দেখাও — কোন partition কতটুকু full। <code>-h</code> = human readable (GB, MB)।</span>
+          <span class="en">Shows disk usage by partition in human-readable format</span>
+        </div>
+      </div>
+      <div class="cmd-item">
+        <div class="cmd-line"><span class="prompt">$</span><span class="cmd-text">du -sh /var/log/*</span></div>
+        <div class="explain">
+          <span class="bn">👉 Log folder-এর size দেখাও। কোন log file অস্বাভাবিক বড় তা ধরা যাবে।</span>
+          <span class="en">Shows size of each log file — large logs may indicate attacks</span>
+        </div>
+      </div>
+      <div class="cmd-item">
+        <div class="cmd-line"><span class="prompt">$</span><span class="cmd-text">find / -mtime -1 -type f 2>/dev/null</span></div>
+        <div class="explain">
+          <span class="bn">👉 গত ২৪ ঘন্টায় modify হওয়া ফাইল খুঁজে বের করো। Suspicious file activity detect করতে।</span>
+          <span class="en">Finds files modified in last 24 hours — detects recent changes</span>
+        </div>
+      </div>
+      <div class="cmd-item">
+        <div class="cmd-line"><span class="prompt">C:\&gt;</span><span class="cmd-text">wmic diskdrive get caption,size</span></div>
+        <div class="explain">
+          <span class="bn">👉 Windows-এ disk drive-এর তথ্য দেখাও।</span>
+          <span class="en">Shows disk drive information on Windows</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     4. FIREWALL & DEFENSE
+══════════════════════════════════════ -->
+<section id="firewall" class="section">
+  <div class="sec-head">
+    <div class="sec-eye">Blue Team Defense</div>
+    <h2>🛡 Firewall & Defense Commands</h2>
+    <p>নিজের system রক্ষা করো — firewall, iptables, Windows Defender।</p>
+  </div>
+
+  <div class="terminal">
+    <div class="t-bar">
+      <div class="t-dots"><span></span><span></span><span></span></div>
+      <span class="t-title">🔥 UFW — Linux Firewall (সহজ)</span>
+      <span class="t-os os-lin">LINUX</span>
+    </div>
+    <div class="t-body">
+      <div class="cmd-item">
+        <div class="cmd-line"><span class="prompt">$</span><span class="cmd-text">sudo ufw status verbose</span></div>
+        <div class="explain">
+          <span class="bn">👉 Firewall-এর বর্তমান অবস্থা দেখাও — কোন rules active আছে।</span>
+          <span class="en">Shows current firewall status and all active rules</span>
+        </div>
+      </div>
+      <div class="cmd-item">
+        <div class="cmd-line"><span class="prompt">$</span><span class="cmd-text">sudo ufw enable</span></div>
+        <div class="explain"><span class="bn">👉 Firewall চালু করো।</span><span class="en">Enables the UFW firewall</span></div>
+      </div>
+      <div class="cmd-item">
+        <div class="cmd-line"><span class="prompt">$</span><span class="cmd-text">sudo ufw allow 22/tcp</span></div>
+        <div class="explain"><span class="bn">👉 SSH port 22 allow করো।</span><span class="en">Opens port 22 for SSH connections</span></div>
+      </div>
+      <div class="cmd-item">
+        <div class="cmd-line"><span class="prompt">$</span><span class="cmd-text">sudo ufw deny 23/tcp</span></div>
+        <div class="explain"><span class="bn">👉 Telnet port 23 block করো। Telnet insecure — সবসময় block রাখো।</span><span class="en">Blocks insecure Telnet port — always deny this</span></div>
+      </div>
+      <div class="cmd-item">
+        <div class="cmd-line"><span class="prompt">$</span><span class="cmd-text">sudo ufw deny from 192.168.1.50</span></div>
+        <div class="explain"><span class="bn">👉 নির্দিষ্ট IP থেকে সব connection block করো।</span><span class="en">Blocks all traffic from a specific IP address</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="terminal">
+    <div class="t-bar">
+      <div class="t-dots"><span></span><span></span><span></span></div>
+      <span class="t-title">⚙ iptables — Advanced Linux Firewall</span>
+      <span class="t-os os-lin">LINUX / KALI</span>
+    </div>
+    <div class="t-body">
+      <div class="cmd-item">
+        <div class="cmd-line"><span class="prompt">$</span><span class="cmd-text">sudo iptables -L -n -v</span></div>
+        <div class="explain">
+          <span class="bn">👉 সব iptables rules দেখাও। <code>-L</code>=list, <code>-n</code>=numeric, <code>-v</code>=verbose।</span>
+          <span class="en">Lists all iptables firewall rules with details</span>
+        </div>
+      </div>
+      <div class="cmd-item">
+        <div class="cmd-line"><span class="prompt">$</span><span class="cmd-text">sudo iptables -A INPUT -p tcp --dport 80 -j ACCEPT</span></div>
+        <div class="explain">
+          <span class="bn">👉 Port 80-এ incoming connection allow করো। <code>-A</code>=append, <code>-j ACCEPT</code>=allow।</span>
+          <span class="en">Allows incoming TCP connections on port 80</span>
+        </div>
+      </div>
+      <div class="cmd-item">
+        <div class="cmd-line"><span class="prompt">$</span><span class="cmd-text">sudo iptables -A INPUT -s 10.0.0.5 -j DROP</span></div>
+        <div class="explain">
+          <span class="bn">👉 নির্দিষ্ট IP থেকে সব packet drop করো (silently block)।</span>
+          <span class="en">Silently drops all packets from a specific IP</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     5. WIFI ANALYSIS
+══════════════════════════════════════ -->
+<section id="wifi" class="section">
+  <div class="sec-head">
+    <div class="sec-eye">Wireless Network</div>
+    <h2>📡 WiFi Analysis Commands</h2>
+    <p>Wireless network analysis — নিজের network-এর security বোঝার জন্য।</p>
+  </div>
+
+  <div class="note red"><strong>🚨 WARNING</strong>WiFi hacking commands শুধু নিজের router বা authorized lab-এ। অন্যের WiFi-এ করা বেআইনি।</div>
+
+  <div class="terminal">
+    <div class="t-bar">
+      <div class="t-dots"><span></span><span></span><span></span></div>
+      <span class="t-title">📶 WiFi Info & Scanning</span>
+      <span class="t-os os-both">BOTH</span>
+    </div>
+    <div class="t-body">
+      <div class="cmd-item">
+        <div class="cmd-line"><span class="prompt">C:\&gt;</span><span class="cmd-text">netsh wlan show networks</span></div>
+        <div class="explain">
+          <span class="bn">👉 কাছের সব WiFi network দেখাও — SSID, signal strength, encryption type।</span>
+          <span class="en">Shows nearby WiFi networks with security type</span>
+        </div>
+      </div>
+      <div class="cmd-item">
+        <div class="cmd-line"><span class="prompt">C:\&gt;</span><span class="cmd-text">netsh wlan show profiles</span></div>
+        <div class="explain">
+          <span class="bn">👉 আগে connect করা সব WiFi-এর profile দেখাও।</span>
+          <span class="en">Lists all saved WiFi profiles on Windows</span>
+        </div>
+      </div>
+      <div class="cmd-item">
+        <div class="cmd-line"><span class="prompt">C:\&gt;</span><span class="cmd-text">netsh wlan show profile "MyWiFi" key=clear</span></div>
+        <div class="explain">
+          <span class="bn">👉 একটি saved WiFi-এর password দেখাও (নিজের network হতে হবে)।</span>
+          <span class="en">Reveals saved WiFi password — your own network only!</span>
+        </div>
+      </div>
+      <div class="cmd-item">
+        <div class="cmd-line"><span class="prompt">$</span><span class="cmd-text">iwconfig</span></div>
+        <div class="explain">
+          <span class="bn">👉 Linux-এ wireless interface-এর তথ্য দেখাও।</span>
+          <span class="en">Shows wireless interface configuration on Linux</span>
+        </div>
+      </div>
+      <div class="cmd-item">
+        <div class="cmd-line"><span class="prompt">$</span><span class="cmd-text">sudo iwlist wlan0 scan | grep ESSID</span></div>
+        <div class="explain">
+          <span class="bn">👉 Linux-এ কাছের WiFi network scan করো, শুধু নাম দেখাও।</span>
+          <span class="en">Scans for nearby WiFi networks on Linux, showing only names</span>
+        </div>
+      </div>
+      <div class="cmd-item">
+        <div class="cmd-line"><span class="prompt">$</span><span class="cmd-text">nmcli dev wifi list</span></div>
+        <div class="explain">
+          <span class="bn">👉 Kali/Ubuntu-তে WiFi network সুন্দরভাবে দেখাও — signal, security সহ।</span>
+          <span class="en">Modern way to list WiFi networks on Linux with signal details</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     6. LOG ANALYSIS
+══════════════════════════════════════ -->
+<section id="logs" class="section">
+  <div class="sec-head">
+    <div class="sec-eye">Incident Response</div>
+    <h2>📋 Log Analysis Commands</h2>
+    <p>Security logs পড়া — attack detect করার সবচেয়ে গুরুত্বপূর্ণ skill।</p>
+  </div>
+
+  <div class="terminal">
+    <div class="t-bar">
+      <div class="t-dots"><span></span><span></span><span></span></div>
+      <span class="t-title">📄 Linux System Logs</span>
+      <span class="t-os os-lin">LINUX / KALI</span>
+    </div>
+    <div class="t-body">
+      <div class="cmd-item">
+        <div class="cmd-line"><span class="prompt">$</span><span class="cmd-text">sudo tail -f /var/log/syslog</span></div>
+        <div class="explain">
+          <span class="bn">👉 System log real-time দেখাও। <code>-f</code> = follow (নতুন entry আসলে দেখাবে)। সমস্যা diagnose করতে।</span>
+          <span class="en">Live-tails the system log — shows new entries as they appear</span>
+        </div>
+      </div>
+      <div class="cmd-item">
+        <div class="cmd-line"><span class="prompt">$</span><span class="cmd-text">sudo cat /var/log/auth.log | grep "Failed password"</span></div>
+        <div class="explain">
+          <span class="bn">👉 SSH login failure দেখাও। Brute-force attack detect করতে পারবে।</span>
+          <span class="en">Finds failed SSH login attempts — detects brute-force attacks</span>
+          <span class="out">▸ sshd[1234]: Failed password for root from 45.33.x.x port 54321</span>
+        </div>
+      </div>
+      <div class="cmd-item">
+        <div class="cmd-line"><span class="prompt">$</span><span class="cmd-text">sudo grep "Accepted password" /var/log/auth.log</span></div>
+        <div class="explain">
+          <span class="bn">👉 Successful login দেখাও — কে কখন login করেছে।</span>
+          <span class="en">Shows successful logins — check for unauthorized access</span>
+        </div>
+      </div>
+      <div class="cmd-item">
+        <div class="cmd-line"><span class="prompt">$</span><span class="cmd-text">sudo journalctl -xe</span></div>
+        <div class="explain">
+          <span class="bn">👉 systemd journal log দেখাও। Service crash, error সব এখানে থাকে।</span>
+          <span class="en">Views systemd journal with context and explanations</span>
+        </div>
+      </div>
+      <div class="cmd-item">
+        <div class="cmd-line"><span class="prompt">$</span><span class="cmd-text">sudo journalctl -u nginx --since "1 hour ago"</span></div>
+        <div class="explain">
+          <span class="bn">👉 নির্দিষ্ট service-এর শেষ ১ ঘন্টার log দেখাও।</span>
+          <span class="en">Shows nginx logs from the last hour — replace with any service</span>
+        </div>
+      </div>
+      <div class="cmd-item">
+        <div class="cmd-line"><span class="prompt">$</span><span class="cmd-text">sudo cat /var/log/apache2/access.log | awk '{print $1}' | sort | uniq -c | sort -rn | head -10</span></div>
+        <div class="explain">
+          <span class="bn">👉 Apache log থেকে সবচেয়ে বেশি request আসা top 10 IP বের করো। DDoS/scanner detect করতে।</span>
+          <span class="en">Finds top 10 IPs hitting your web server — detects scanners/attacks</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="terminal">
+    <div class="t-bar">
+      <div class="t-dots"><span></span><span></span><span></span></div>
+      <span class="t-title">📋 Windows Event Log</span>
+      <span class="t-os os-win">WINDOWS</span>
+    </div>
+    <div class="t-body">
+      <div class="cmd-item">
+        <div class="cmd-line"><span class="prompt">C:\&gt;</span><span class="cmd-text">eventvwr.msc</span></div>
+        <div class="explain">
+          <span class="bn">👉 Windows Event Viewer GUI খোলো। Security, System, Application log সব এখানে।</span>
+          <span class="en">Opens Windows Event Viewer — GUI for all Windows logs</span>
+        </div>
+      </div>
+      <div class="cmd-item">
+        <div class="cmd-line"><span class="prompt">C:\&gt;</span><span class="cmd-text">wevtutil qe Security /c:20 /rd:true /f:text</span></div>
+        <div class="explain">
+          <span class="bn">👉 Security event log-এর শেষ ২০টি entry command line-এ দেখাও।</span>
+          <span class="en">Shows last 20 Security log entries from command line</span>
+        </div>
+      </div>
+      <div class="cmd-item">
+        <div class="cmd-line"><span class="prompt">C:\&gt;</span><span class="cmd-text">Get-EventLog -LogName Security -Newest 50 | Where-Object {$_.EventID -eq 4625}</span></div>
+        <div class="explain">
+          <span class="bn">👉 PowerShell: শেষ ৫০টির মধ্যে Event ID 4625 (failed login) খুঁজো।</span>
+          <span class="en">PowerShell: finds failed login events (ID 4625) in Security log</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     7. TOOLS SETUP
+══════════════════════════════════════ -->
+<section id="tools" class="section">
+  <div class="sec-head">
+    <div class="sec-eye">Lab Setup</div>
+    <h2>🧰 Essential Security Tools Install</h2>
+    <p>Kali Linux বা Ubuntu-তে দরকারী security tools ইনস্টল করো।</p>
+  </div>
+
+  <div class="terminal">
+    <div class="t-bar">
+      <div class="t-dots"><span></span><span></span><span></span></div>
+      <span class="t-title">⚙ Kali Linux / Ubuntu Tool Install</span>
+      <span class="t-os os-lin">LINUX</span>
+    </div>
+    <div class="t-body">
+      <div class="cmd-item">
+        <div class="cmd-line"><span class="prompt">$</span><span class="cmd-text">sudo apt update && sudo apt upgrade -y</span></div>
+        <div class="explain"><span class="bn">👉 System update করো। সবকিছুর আগে এটা করো।</span></div>
+      </div>
+      <div class="cmd-item">
+        <div class="cmd-line"><span class="prompt">$</span><span class="cmd-text">sudo apt install nmap wireshark netcat curl wget git -y</span></div>
+        <div class="explain"><span class="bn">👉 Basic security tools ইনস্টল করো।</span><span class="en">Installs core tools: nmap, wireshark, netcat, curl, wget, git</span></div>
+      </div>
+      <div class="cmd-item">
+        <div class="cmd-line"><span class="prompt">$</span><span class="cmd-text">sudo apt install hydra john hashcat -y</span></div>
+        <div class="explain"><span class="bn">👉 Password testing tools (LAB ONLY) — Hydra, John the Ripper, Hashcat।</span><span class="en">Password auditing tools — authorized lab environments ONLY</span></div>
+      </div>
+      <div class="cmd-item">
+        <div class="cmd-line"><span class="prompt">$</span><span class="cmd-text">sudo apt install sqlmap nikto dirb gobuster -y</span></div>
+        <div class="explain"><span class="bn">👉 Web application testing tools (LAB ONLY)।</span><span class="en">Web security testing tools — use only on your own apps or lab</span></div>
+      </div>
+      <div class="cmd-item">
+        <div class="cmd-line"><span class="prompt">$</span><span class="cmd-text">sudo apt install metasploit-framework -y</span></div>
+        <div class="explain"><span class="bn">👉 Metasploit Framework — সবচেয়ে বিখ্যাত penetration testing framework। LAB ONLY।</span><span class="en">Most famous pen-testing framework — LAB/CTF use only</span></div>
+      </div>
+      <div class="cmd-item">
+        <div class="cmd-line"><span class="prompt">$</span><span class="cmd-text">pip install scapy impacket</span></div>
+        <div class="explain"><span class="bn">👉 Python networking libraries। Script দিয়ে packet analyze করার জন্য।</span><span class="en">Python libraries for packet crafting and network analysis</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cg">
+    <div class="card">
+      <div class="card-icon">🦈</div>
+      <h3>Wireshark</h3>
+      <p>Network packet capture ও analysis। Real traffic দেখার সেরা GUI tool।</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">🗺</div>
+      <h3>Nmap / Zenmap</h3>
+      <p>Network scanner। Port, service, OS সব আবিষ্কার করে।</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">🐉</div>
+      <h3>Metasploit</h3>
+      <p>Exploitation framework। CTF ও authorized pen-test-এ ব্যবহার করো।</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">🔐</div>
+      <h3>Burp Suite</h3>
+      <p>Web application security testing। HTTP intercept, scan, fuzz।</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">🐍</div>
+      <h3>SQLmap</h3>
+      <p>SQL injection testing tool। নিজের database-driven app test করো।</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">🔑</div>
+      <h3>Hashcat</h3>
+      <p>Password hash cracking tool। নিজের password policy test করো।</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     8. CHEAT SHEET
+══════════════════════════════════════ -->
+<section id="cheatsheet" class="section">
+  <div class="sec-head">
+    <div class="sec-eye">Quick Reference</div>
+    <h2>📄 Complete Cheat Sheet</h2>
+    <p>সব important command এক জায়গায় — দ্রুত reference-এর জন্য।</p>
+  </div>
+
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Command</th><th>কাজ</th><th>OS</th><th>Level</th></tr></thead>
+      <tbody>
+        <tr><td>ipconfig /all</td><td><span class="bn-td">IP, MAC, DNS সব দেখাও</span></td><td>Win</td><td><span class="lv lv-b">Basic</span></td></tr>
+        <tr><td>ip a</td><td><span class="bn-td">Network interface info</span></td><td>Linux</td><td><span class="lv lv-b">Basic</span></td></tr>
+        <tr><td>ping -c 4 8.8.8.8</td><td><span class="bn-td">Internet connection test</span></td><td>Both</td><td><span class="lv lv-b">Basic</span></td></tr>
+        <tr><td>traceroute / tracert</td><td><span class="bn-td">Packet route দেখাও</span></td><td>Both</td><td><span class="lv lv-b">Basic</span></td></tr>
+        <tr><td>nslookup domain.com</td><td><span class="bn-td">Domain → IP</span></td><td>Both</td><td><span class="lv lv-b">Basic</span></td></tr>
+        <tr><td>dig domain.com ANY</td><td><span class="bn-td">সব DNS record</span></td><td>Linux</td><td><span class="lv lv-b">Basic</span></td></tr>
+        <tr><td>whois domain.com</td><td><span class="bn-td">Domain registration info</span></td><td>Both</td><td><span class="lv lv-b">Basic</span></td></tr>
+        <tr><td>arp -a</td><td><span class="bn-td">LAN device MAC mapping</span></td><td>Both</td><td><span class="lv lv-b">Basic</span></td></tr>
+        <tr><td>netstat -ano</td><td><span class="bn-td">Active connections + PID</span></td><td>Win</td><td><span class="lv lv-m">Mid</span></td></tr>
+        <tr><td>ss -tulpn</td><td><span class="bn-td">Listening ports + process</span></td><td>Linux</td><td><span class="lv lv-m">Mid</span></td></tr>
+        <tr><td>nmap -sV target</td><td><span class="bn-td">Port + service version scan</span></td><td>Linux</td><td><span class="lv lv-m">Mid</span></td></tr>
+        <tr><td>nmap -sn 192.168.1.0/24</td><td><span class="bn-td">LAN host discovery</span></td><td>Linux</td><td><span class="lv lv-m">Mid</span></td></tr>
+        <tr><td>ps aux | grep proc</td><td><span class="bn-td">Process খুঁজো</span></td><td>Linux</td><td><span class="lv lv-m">Mid</span></td></tr>
+        <tr><td>tasklist /v</td><td><span class="bn-td">Windows process list</span></td><td>Win</td><td><span class="lv lv-m">Mid</span></td></tr>
+        <tr><td>last -n 20</td><td><span class="bn-td">Login history</span></td><td>Linux</td><td><span class="lv lv-m">Mid</span></td></tr>
+        <tr><td>grep "Failed" /var/log/auth.log</td><td><span class="bn-td">Failed SSH logins</span></td><td>Linux</td><td><span class="lv lv-m">Mid</span></td></tr>
+        <tr><td>sudo ufw status verbose</td><td><span class="bn-td">Firewall status</span></td><td>Linux</td><td><span class="lv lv-m">Mid</span></td></tr>
+        <tr><td>sudo iptables -L -n -v</td><td><span class="bn-td">All iptables rules</span></td><td>Linux</td><td><span class="lv lv-a">Adv</span></td></tr>
+        <tr><td>nmap -sC -sV -oN out.txt target</td><td><span class="bn-td">Full audit + save result</span></td><td>Linux</td><td><span class="lv lv-a">Adv</span></td></tr>
+        <tr><td>nmap --script vuln target</td><td><span class="bn-td">Vulnerability scan (LAB)</span></td><td>Linux</td><td><span class="lv lv-a">Adv</span></td></tr>
+        <tr><td>sudo journalctl -u svc --since "1h ago"</td><td><span class="bn-td">Service log (last 1h)</span></td><td>Linux</td><td><span class="lv lv-a">Adv</span></td></tr>
+        <tr><td>find / -mtime -1 -type f</td><td><span class="bn-td">Recently modified files</span></td><td>Linux</td><td><span class="lv lv-a">Adv</span></td></tr>
+        <tr><td>mtr google.com</td><td><span class="bn-td">Real-time traceroute</span></td><td>Linux</td><td><span class="lv lv-a">Adv</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="note cyan"><strong>💡 IMPORTANT PORT NUMBERS</strong>
+    22=SSH | 23=Telnet(insecure) | 25=SMTP | 53=DNS | 80=HTTP | 443=HTTPS | 3306=MySQL | 5432=PostgreSQL | 6379=Redis | 27017=MongoDB | 3389=RDP | 8080=Alt HTTP
+  </div>
+</section>
+
+</div>
+
+<footer>
+  <span>RAHAT</span> · Ethical Cyber Security Field Guide · Lab Use Only · Stay Legal
+</footer>
+
+<script>
+// ── nav ──
+function show(id){
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.nbtn').forEach(b=>b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  event.target.classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+// ── typing animation ──
+const lines = [
+  'Full Stack Developer',
+  'SOC / Blue Team Engineer',
+  'Ethical Hacking Lab Operator',
+  'DevOps & Cloud Architect',
+  'Cyber Security Learner',
+];
+let li=0, ci=0, del=false;
+const el = document.getElementById('typer');
+
+function type(){
+  const word = lines[li];
+  if(!del){
+    el.textContent = word.slice(0,++ci);
+    if(ci===word.length){ del=true; setTimeout(type,1800); return; }
+  } else {
+    el.textContent = word.slice(0,--ci);
+    if(ci===0){ del=false; li=(li+1)%lines.length; }
+  }
+  setTimeout(type, del ? 40 : 70);
+}
+type();
+</script>
+</body>
+</html>
